@@ -343,6 +343,18 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
                         }else {
                             /**添加方法**/
                             AddRecord();
+                            stringBuilder1.setLength(0);
+                            stringBuilder2.setLength(0);
+                            /**小数点也有去掉 设置为没有小数点**/
+                            isDian=true;
+                            isDian1=true;
+                            /**显示为0   第二个设置为空 并且隐藏**/
+                            mvpView.getAddRecord_TextView_Sum().setText("0");
+                            mvpView.getAddRecord_TextView_Symbol().setText("");
+                            mvpView.getAddRecord_TextView_Symbol().setVisibility(View.GONE);
+                            Jia_Jian=0;   //清除运算
+                            TextView textView2=mvpView.getAddRecord_RecyclerView_Calculator().getLayoutManager().findViewByPosition(15).findViewById(R.id.AddRecord_RecyclerView_Calculator_Item_Text);
+                            textView2.setText("确定");
                         }
 
                         break;
@@ -425,7 +437,7 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
         timeLine.setIcon_Class(index);
         timeLine.setMessage(mvpView.getAddRecord_EditText_Message().getText().toString().trim());
         timeLine.setImageUrl(mvpView.getImageUrl());
-        timeLine.setNoteBook(0);
+        timeLine.setNoteBook(1);
         timeLine.setPrice(Double.parseDouble(mvpView.getAddRecord_TextView_Sum().getText().toString().trim()));
         timeLine.setTime(setChooseTime);
         if(timeLine.save()){
