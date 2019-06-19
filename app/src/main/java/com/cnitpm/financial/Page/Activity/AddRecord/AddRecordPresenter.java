@@ -22,10 +22,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cnitpm.financial.Base.BasePresenter;
 import com.cnitpm.financial.Base.MvpFragment;
 import com.cnitpm.financial.Model.AllModel;
+import com.cnitpm.financial.Model.NoteBook;
 import com.cnitpm.financial.Model.TimeLine;
 import com.cnitpm.financial.Page.Activity.AddRecord.ViewPage.ARViewPageFragment;
-import com.cnitpm.financial.Page.Fragment.Main.MainFragment;
 import com.cnitpm.financial.R;
+import com.cnitpm.financial.Util.SqlOperation;
 import com.cnitpm.financial.Util.UtilRecyclerAdapter;
 import com.cnitpm.financial.Util.Utils;
 import com.luck.picture.lib.PictureSelector;
@@ -50,8 +51,11 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
     private boolean LR=false;
 
     private String setChooseTime=null;
+    private int noteBookId=1;  //账本Id
+    private  List<NoteBook> noteBooks;  //账本列表
     @Override
     public void init() {
+        noteBooks= new SqlOperation().SelectAll(NoteBook.class);  //获取全部账本
         setChooseTime=Utils.getFormat("yyyy-MM-dd",new Date().getTime());
         //标题
         mvpView.getInclude_Title().setText("记一笔");
@@ -343,6 +347,18 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
                         }else {
                             /**添加方法**/
                             AddRecord();
+                            stringBuilder1.setLength(0);
+                            stringBuilder2.setLength(0);
+                            /**小数点也有去掉 设置为没有小数点**/
+                            isDian=true;
+                            isDian1=true;
+                            /**显示为0   第二个设置为空 并且隐藏**/
+                            mvpView.getAddRecord_TextView_Sum().setText("0");
+                            mvpView.getAddRecord_TextView_Symbol().setText("");
+                            mvpView.getAddRecord_TextView_Symbol().setVisibility(View.GONE);
+                            Jia_Jian=0;   //清除运算
+                            TextView textView2=mvpView.getAddRecord_RecyclerView_Calculator().getLayoutManager().findViewByPosition(15).findViewById(R.id.AddRecord_RecyclerView_Calculator_Item_Text);
+                            textView2.setText("确定");
                         }
 
                         break;
@@ -425,7 +441,7 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
         timeLine.setIcon_Class(index);
         timeLine.setMessage(mvpView.getAddRecord_EditText_Message().getText().toString().trim());
         timeLine.setImageUrl(mvpView.getImageUrl());
-        timeLine.setNoteBook(0);
+        timeLine.setNoteBook(noteBookId);
         timeLine.setPrice(Double.parseDouble(mvpView.getAddRecord_TextView_Sum().getText().toString().trim()));
         timeLine.setTime(setChooseTime);
         if(timeLine.save()){

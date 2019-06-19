@@ -3,6 +3,10 @@ package com.cnitpm.financial.Base;
 import android.app.Application;
 
 import org.litepal.LitePal;
+import com.cnitpm.financial.Model.NoteBook;
+import com.cnitpm.financial.Util.Utils;
+
+import java.util.Date;
 
 public class BaseApplication extends Application {
     @Override
@@ -10,5 +14,6 @@ public class BaseApplication extends Application {
         super.onCreate();
         // 初始化
         LitePal.initialize(this);
+        new NoteBook(1,"默认账本", Utils.getFormat("YYYY-MM-dd",new Date().getTime())).save();
     }
 }

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#ffffff"
     android:orientation="vertical">
     <!--title  日期  搜索按钮  日历按钮  账本按钮-->
@@ -60,16 +61,19 @@
         android:layout_height="@dimen/height_60dp">
         <TextView
             android:id="@+id/Main_TextView_Money_L"
-            android:layout_toLeftOf="@+id/Main_Recycler_WavesProgress"
+            android:layout_toLeftOf="@+id/Main_Recycler_WavesView"
             android:gravity="center"
             android:textSize="@dimen/sp_12"
             android:textColor="@color/C2b2b2b"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <com.cnitpm.financial.Custom.WavesProgress
-            android:id="@+id/Main_Recycler_WavesProgress"
+
+        <com.cnitpm.financial.Custom.WaveView
+            android:id="@+id/Main_Recycler_WavesView"
             android:layout_width="60dp"
+            app:behindWaveColor="#F1AAA6"
+            app:amplitudeRatio="0.02"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:gravity="center" />
@@ -84,7 +88,7 @@
             android:gravity="center" />
         <TextView
             android:id="@+id/Main_TextView_Money_R"
-            android:layout_toRightOf="@+id/Main_Recycler_WavesProgress"
+            android:layout_toRightOf="@+id/Main_Recycler_WavesView"
             android:gravity="center"
             android:textSize="@dimen/sp_12"
             android:textColor="@color/C2b2b2b"

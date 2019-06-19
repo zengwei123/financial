@@ -60,7 +60,8 @@ public class WavesProgress extends View {
         mPaint.setColor(Color.parseColor("#F1AAA6"));
         Path path = new Path();
         path.reset();
-        path.moveTo((float) (-mWaveDx + dx), (float) (mHeight *0.5));
+
+        path.moveTo((float) (-mWaveDx + dx), (float) (mHeight *0.9));
         for (int i = -mWaveDx; i < getWidth() + mWaveDx; i += mWaveDx) {
             path.rQuadTo(mWaveDx / 4, -mWaveHeight, mWaveDx / 2, 0);
             path.rQuadTo(mWaveDx / 4, mWaveHeight, mWaveDx / 2, 0);

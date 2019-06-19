@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.cnitpm.financial.Base.BaseView;
+import com.cnitpm.financial.Custom.WaveView;
 
 interface MainView extends BaseView {
     RecyclerView getMain_Recycler_TimeLine();
@@ -15,4 +16,5 @@ interface MainView extends BaseView {
     TextView getMain_TextView_Search();
     TextView getMain_TextView_Calendar();
     TextView getMain_TextView_Budget();
+    WaveView getMain_Recycler_WavesView();
 }

@@ -1,5 +1,9 @@
 package com.cnitpm.financial.Page.Fragment.Main;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -10,12 +14,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
 import com.cnitpm.financial.Base.MvpActivity;
 import com.cnitpm.financial.Base.MvpFragment;
 import com.cnitpm.financial.Base.ViewBind;
 import com.cnitpm.financial.R;
+
+import com.cnitpm.financial.Custom.WaveView;
+import com.cnitpm.financial.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 首页
@@ -38,6 +50,8 @@ public class MainFragment extends MvpFragment<MainPresenter> implements MainView
     private TextView Main_TextView_Calendar;   //日历
     @ViewBind(R.id.Main_TextView_Budget)
     private TextView Main_TextView_Budget;
+    @ViewBind(R.id.Main_Recycler_WavesView)
+    private WaveView Main_Recycler_WavesView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -105,6 +119,11 @@ public class MainFragment extends MvpFragment<MainPresenter> implements MainView
     @Override
     public TextView getMain_TextView_Budget() {
         return Main_TextView_Budget;
+    }
+
+    @Override
+    public WaveView getMain_Recycler_WavesView() {
+        return Main_Recycler_WavesView;
     }
 
     @Override
