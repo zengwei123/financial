@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="#ffffff">
+    <TextView
+        android:id="@+id/AddRecord_RecyclerView_Calculator_Item_Text"
+        android:background="?android:attr/selectableItemBackground"
+        android:textColor="@color/C2b2b2b"
+        android:textSize="@dimen/Text_InThe_sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>

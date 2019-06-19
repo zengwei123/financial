@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/Main_Recycler_TimeLine_Item_TimeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_50dp">
+        <View
+            android:layout_centerInParent="true"
+            android:layout_width="1dp"
+            android:background="#cccccc"
+            android:layout_height="match_parent">
+        </View>
+        <ImageView
+            android:id="@+id/Main_Recycler_TimeLine_Item_Time"
+            android:src="@mipmap/time"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true" />
+
+        <LinearLayout
+            android:layout_toLeftOf="@+id/Main_Recycler_TimeLine_Item_Time"
+            android:padding="@dimen/padding_5dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/Main_Recycler_TimeLine_Item_Title_Time_L"
+                android:layout_weight="1"
+                android:textSize="@dimen/Text_InThe_sp"
+                android:textColor="@color/Cff0000"
+                android:gravity="center|right"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_toRightOf="@+id/Main_Recycler_TimeLine_Item_Time"
+            android:padding="@dimen/padding_5dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/Main_Recycler_TimeLine_Item_Title_Time_R"
+                android:layout_weight="1"
+                android:textSize="@dimen/Text_InThe_sp"
+                android:textColor="@color/Cff0000"
+                android:gravity="center|left"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_60dp">
+        <View
+            android:layout_centerInParent="true"
+            android:layout_width="1dp"
+            android:background="#cccccc"
+            android:layout_height="match_parent">
+
+        </View>
+        <ImageView
+            android:id="@+id/Main_Recycler_TimeLine_Item_Icon"
+            android:layout_width="@dimen/height_40dp"
+            android:layout_height="@dimen/height_40dp"
+            android:layout_centerInParent="true" />
+
+        <LinearLayout
+            android:id="@+id/Main_Recycler_TimeLine_Item_Layout_L"
+            android:layout_toLeftOf="@+id/Main_Recycler_TimeLine_Item_Icon"
+            android:padding="@dimen/padding_5dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/Main_Recycler_TimeLine_Item_Title_L"
+                android:layout_weight="1"
+                android:textSize="@dimen/Text_InThe_sp"
+                android:lines="1"
+                android:ellipsize="end"
+                android:gravity="center|right"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/Main_Recycler_TimeLine_Item_Message_L"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:gravity="center|right"
+                android:lines="1"
+                android:ellipsize="end"
+                android:textSize="@dimen/Text_Small_sp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/Main_Recycler_TimeLine_Item_Layout_R"
+            android:layout_toRightOf="@+id/Main_Recycler_TimeLine_Item_Icon"
+            android:padding="@dimen/padding_5dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/Main_Recycler_TimeLine_Item_Title_R"
+                android:layout_weight="1"
+                android:textSize="@dimen/Text_InThe_sp"
+                android:lines="1"
+                android:ellipsize="end"
+                android:gravity="center|left"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/Main_Recycler_TimeLine_Item_Message_R"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:lines="1"
+                android:ellipsize="end"
+                android:gravity="center|left"
+                android:textSize="@dimen/Text_Small_sp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

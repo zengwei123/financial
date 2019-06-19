@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#ffffff"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_40dp">
+
+    <ImageView
+        android:id="@+id/Calendar_RecyclerView_CalendarRecord_Icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:padding="5dp"
+        android:src="@mipmap/back" />
+    <TextView
+        android:id="@+id/Calendar_RecyclerView_CalendarRecord_Title"
+        android:layout_toRightOf="@+id/Calendar_RecyclerView_CalendarRecord_Icon"
+        android:layout_toLeftOf="@+id/Calendar_RecyclerView_CalendarRecord_Price"
+        android:gravity="center|left"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/C2b2b2b"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <TextView
+        android:id="@+id/Calendar_RecyclerView_CalendarRecord_Price"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/C2b2b2b"
+        android:padding="5dp" />
+</RelativeLayout>
