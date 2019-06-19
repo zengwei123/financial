@@ -499,6 +499,7 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
         mvpView.getAddRecord_TextView_Cancel().setOnClickListener(this);
         mvpView.getAddRecord_TextView_Determine().setOnClickListener(this);
         mvpView.getAddRecord_TextView_MessageTime().setOnClickListener(this);
+        mvpView.getAddRecord_TextView_NoteBook().setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
@@ -545,6 +546,7 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
                 break;
             /*************************************/
             case R.id.AddRecord_TextView_NoteBook://账本
+                Toast.makeText(mvpView.getActivityContext(), "添加账本", Toast.LENGTH_SHORT).show();
                 break;
             /*************************************/
             case R.id.AddRecord_TextView_Cancel://取消按钮
