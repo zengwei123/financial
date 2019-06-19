@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#ffffff"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.cnitpm.financial.Custom.SpringbackView
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/ARViewPager_Recycler_ClassChoose"
+            android:overScrollMode="never"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </com.cnitpm.financial.Custom.SpringbackView>
+</LinearLayout>

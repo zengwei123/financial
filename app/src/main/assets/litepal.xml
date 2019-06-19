@@ -1,0 +1,10 @@
+<?xml version="0.1" encoding="utf-8"?>
+<litepal>
+    <dbname value="FinancialSql" />    <!--数据库名字-->
+    <version value="1" />              <!--数据库版本为1,每次数据库发生变动版本号必须+1-->
+    <list>                              <!--有几张表就在list之间写几个mapping-->
+        <!--list标签中的实体类都应该继承LitePalSupport这个类,这个千万别忘记-->
+        <mapping class="com.cnitpm.financial.Model.TimeLine"></mapping>
+    </list>
+
+</litepal>

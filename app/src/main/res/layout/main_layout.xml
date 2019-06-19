@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+    <!--title  日期  搜索按钮  日历按钮  账本按钮-->
+    <RelativeLayout
+        android:background="@color/C5ED5D1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_40dp">
+
+        <TextView
+            android:id="@+id/Main_TextView_Date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/mian_head_date"
+            android:gravity="center"
+            android:textColor="@color/CF2F2F2"
+            android:textSize="@dimen/sp_12" />
+        <TextView
+            android:id="@+id/Main_TextView_NoteBook"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:background="@drawable/mian_head_round"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/CF2F2F2"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textSize="@dimen/sp_12" />
+        <TextView
+            android:id="@+id/Main_TextView_Search"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/mian_head_round"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/CF2F2F2"
+            android:textSize="@dimen/sp_12" />
+        <TextView
+            android:id="@+id/Main_TextView_Calendar"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/mian_head_round"
+            android:layout_toLeftOf="@id/Main_TextView_Search"
+            android:layout_margin="5dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:textColor="@color/CF2F2F2"
+            android:textSize="@dimen/sp_12" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_60dp">
+        <TextView
+            android:id="@+id/Main_TextView_Money_L"
+            android:layout_toLeftOf="@+id/Main_Recycler_WavesProgress"
+            android:gravity="center"
+            android:textSize="@dimen/sp_12"
+            android:textColor="@color/C2b2b2b"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.cnitpm.financial.Custom.WavesProgress
+            android:id="@+id/Main_Recycler_WavesProgress"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/Main_TextView_Budget"
+            android:layout_width="60dp"
+            android:textSize="10sp"
+            android:textColor="@color/C2b2b2b"
+            android:text="预 算"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/Main_TextView_Money_R"
+            android:layout_toRightOf="@+id/Main_Recycler_WavesProgress"
+            android:gravity="center"
+            android:textSize="@dimen/sp_12"
+            android:textColor="@color/C2b2b2b"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <com.cnitpm.financial.Custom.SpringbackView
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/Main_Recycler_TimeLine"
+            android:overScrollMode="never"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </com.cnitpm.financial.Custom.SpringbackView>
+</LinearLayout>

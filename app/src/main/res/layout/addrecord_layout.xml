@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/z_include_layout"></include>
+        <android.support.design.widget.TabLayout
+            android:layout_marginTop="@dimen/height_40dp"
+            android:id="@+id/AddRecord_TabLayout_LR"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_40dp">
+
+        </android.support.design.widget.TabLayout>
+        <LinearLayout
+            android:id="@+id/AddRecord_Linear_Sum"
+            android:layout_below="@+id/AddRecord_TabLayout_LR"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="@dimen/height_40dp">
+            <LinearLayout
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/AddRecord_ImageView_Icon"
+                    android:src="@mipmap/spending_50"
+                    android:padding="@dimen/padding_5dp"
+                    android:layout_width="@dimen/height_40dp"
+                    android:layout_height="@dimen/height_40dp" />
+                <TextView
+                    android:id="@+id/AddRecord_TextView_Text"
+                    android:gravity="center|left"
+                    android:textColor="@color/C2b2b2b"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_weight="1"
+                    android:gravity="center|right"
+                    android:id="@+id/AddRecord_TextView_Sum"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:layout_weight="1"
+                    android:gravity="center|right"
+                    android:visibility="gone"
+                    android:id="@+id/AddRecord_TextView_Symbol"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <View android:layout_width="match_parent"
+            android:layout_below="@+id/AddRecord_Linear_Sum"
+            android:layout_height="1dp"
+            android:background="#f3f3f3"></View>
+        <android.support.v4.view.ViewPager
+            android:layout_marginTop="1dp"
+            android:layout_below="@+id/AddRecord_Linear_Sum"
+            android:layout_above="@+id/AddRecord_Layout_Message"
+            android:id="@+id/AddRecord_ViewPager_LR"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v4.view.ViewPager>
+        <RelativeLayout
+            android:id="@+id/AddRecord_Layout_Message"
+            android:layout_above="@id/AddRecord_RecyclerView_Calculator"
+            android:layout_width="match_parent"
+            android:background="@color/CF2F2F2"
+            android:layout_height="35dp">
+            <TextView
+                android:background="@drawable/addrecord_messagetime"
+                android:textColor="@color/C2b2b2b"
+                android:textSize="@dimen/sp_12"
+                android:gravity="center"
+                android:id="@+id/AddRecord_TextView_MessageTime"
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <TextView
+                android:background="@drawable/addrecord_messagetime"
+                android:layout_toRightOf="@+id/AddRecord_TextView_MessageTime"
+                android:textColor="@color/C2b2b2b"
+                android:textSize="@dimen/sp_12"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_margin="5dp"
+                android:id="@+id/AddRecord_TextView_NoteBook"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <TextView
+                android:layout_alignParentRight="true"
+                android:textColor="@color/C2b2b2b"
+                android:textSize="@dimen/sp_16"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:gravity="center"
+                android:id="@+id/AddRecord_TextView_AddMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/AddRecord_RecyclerView_Calculator"
+            android:layout_width="match_parent"
+            android:descendantFocusability="beforeDescendants"
+            android:fastScrollEnabled="false"
+            android:layout_height="200dp"
+            android:overScrollMode="never"
+            android:layout_alignParentBottom="true">
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/AddRecord_RelativeLayout_layout"
+        android:background="#cc2b2b2b"
+        android:visibility="gone"
+        android:clickable="true"
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+            <RelativeLayout
+                android:background="#ffffff"
+                android:layout_gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="35dp"
+                    android:layout_alignParentBottom="true">
+                    <TextView
+                        android:id="@+id/AddRecord_TextView_Cancel"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="取消"
+                        android:textColor="#2b2b2b"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:id="@+id/AddRecord_TextView_Determine"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="确定"
+                        android:textColor="#2b2b2b"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <View
+                    android:background="#f3f3f3"
+                    android:layout_marginTop="115dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"></View>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="115dp">
+                    <EditText
+                        android:id="@+id/AddRecord_EditText_Message"
+                        android:hint="备注内容："
+                        android:gravity="top"
+                        android:maxLength="100"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="5dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/CF2F2F2"
+                        android:layout_toLeftOf="@+id/AddRecord_ImageView_Camera"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <ImageView
+                        android:id="@+id/AddRecord_ImageView_Camera"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="20dp"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/camera"
+                        android:background="@drawable/addrecord_messagetime"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp" />
+                </RelativeLayout>
+            </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>
