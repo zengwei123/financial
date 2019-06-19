@@ -22,10 +22,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cnitpm.financial.Base.BasePresenter;
 import com.cnitpm.financial.Base.MvpFragment;
 import com.cnitpm.financial.Model.AllModel;
+import com.cnitpm.financial.Model.NoteBook;
 import com.cnitpm.financial.Model.TimeLine;
 import com.cnitpm.financial.Page.Activity.AddRecord.ViewPage.ARViewPageFragment;
 import com.cnitpm.financial.Page.Fragment.Main.MainFragment;
 import com.cnitpm.financial.R;
+import com.cnitpm.financial.Util.SqlOperation;
 import com.cnitpm.financial.Util.UtilRecyclerAdapter;
 import com.cnitpm.financial.Util.Utils;
 import com.luck.picture.lib.PictureSelector;
@@ -50,8 +52,13 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
     private boolean LR=false;
 
     private String setChooseTime=null;
+
+    private int noteBookId=1;  //账本Id
+    private  List<NoteBook> noteBooks;  //账本列表
     @Override
     public void init() {
+        noteBooks= new SqlOperation().SelectAll(NoteBook.class);  //获取全部账本
+
         setChooseTime=Utils.getFormat("yyyy-MM-dd",new Date().getTime());
         //标题
         mvpView.getInclude_Title().setText("记一笔");
@@ -437,7 +444,7 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
         timeLine.setIcon_Class(index);
         timeLine.setMessage(mvpView.getAddRecord_EditText_Message().getText().toString().trim());
         timeLine.setImageUrl(mvpView.getImageUrl());
-        timeLine.setNoteBook(1);
+        timeLine.setNoteBook(noteBookId);
         timeLine.setPrice(Double.parseDouble(mvpView.getAddRecord_TextView_Sum().getText().toString().trim()));
         timeLine.setTime(setChooseTime);
         if(timeLine.save()){

@@ -67,7 +67,7 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
     /**更新 获取信息方法**/
     public void Refresh(){
         double Money_L=0,Money_R=0;   //本月的支出与收入
-        double balance=0;
+        double balance=3000;
         //时间轴要用
         List<AllModel> allModels=new ArrayList<>();
         //今天添加的
