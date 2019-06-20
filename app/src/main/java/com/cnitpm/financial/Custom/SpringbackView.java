@@ -34,7 +34,7 @@ public class SpringbackView extends ScrollView {
     private Rect originalRect = new Rect();  //代表上下左右的一个区域
 
     private float startY;
-
+    private SpringBackViewEvent springBackViewEvent;
     /**这个方法的作用就是在完成View的布局实例化后的回调**/
     @Override
     protected void onFinishInflate() {
@@ -101,11 +101,18 @@ public class SpringbackView extends ScrollView {
 
                 //位移的动画
                 TranslateAnimation anim = new TranslateAnimation(0, 0, childView.getTop(), originalRect.top);
+                if (springBackViewEvent!=null){
+                    if(childView.getTop()>0){
+                        springBackViewEvent.Translate(true);
+                    }else {
+                        springBackViewEvent.Translate(false);
+                    }
+                }
                 anim.setDuration(ANIM_TIME);  //动画时间
-
                 childView.startAnimation(anim);  //给控件设置动画时间
                 // 将标志位设回false
                 havaMoved = false;  //没有移动
+
                 resetViewLayout();
 
                 break;
@@ -130,5 +137,15 @@ public class SpringbackView extends ScrollView {
         //设置控件的位置
         childView.layout(originalRect.left, originalRect.top, originalRect.right, originalRect.bottom);
     }
+    public interface SpringBackViewEvent{
+        void Translate(boolean b);
+    }
 
+    public SpringBackViewEvent getSpringBackViewEvent() {
+        return springBackViewEvent;
+    }
+
+    public void setSpringBackViewEvent(SpringBackViewEvent springBackViewEvent) {
+        this.springBackViewEvent = springBackViewEvent;
+    }
 }

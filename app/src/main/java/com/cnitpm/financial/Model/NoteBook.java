@@ -9,11 +9,13 @@ public class NoteBook extends LitePalSupport {
     @Column(unique = true)
     private String NoteBookName;
     private String Date;   //创建日期
+    private double Budget;
 
-    public NoteBook(int id, String noteBookName,String Date) {
+    public NoteBook(int id, String noteBookName, String date, double budget) {
         this.id = id;
-        this.NoteBookName = noteBookName;
-        this.Date=Date;
+        NoteBookName = noteBookName;
+        Date = date;
+        Budget = budget;
     }
 
     public int getId() {
@@ -40,11 +42,21 @@ public class NoteBook extends LitePalSupport {
         Date = date;
     }
 
+    public double getBudget() {
+        return Budget;
+    }
+
+    public void setBudget(double budget) {
+        Budget = budget;
+    }
+
     @Override
     public String toString() {
         return "NoteBook{" +
                 "id=" + id +
                 ", NoteBookName='" + NoteBookName + '\'' +
+                ", Date='" + Date + '\'' +
+                ", Budget=" + Budget +
                 '}';
     }
 }

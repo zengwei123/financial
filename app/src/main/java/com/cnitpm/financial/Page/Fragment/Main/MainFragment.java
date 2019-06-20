@@ -2,6 +2,7 @@ package com.cnitpm.financial.Page.Fragment.Main;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
+import android.animation.IntEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
@@ -16,15 +17,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cnitpm.financial.Base.MvpActivity;
 import com.cnitpm.financial.Base.MvpFragment;
 import com.cnitpm.financial.Base.ViewBind;
+import com.cnitpm.financial.Custom.SpringbackView;
 import com.cnitpm.financial.R;
 
 import com.cnitpm.financial.Custom.WaveView;
 import com.cnitpm.financial.R;
+import com.cnitpm.financial.Util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +56,13 @@ public class MainFragment extends MvpFragment<MainPresenter> implements MainView
     private TextView Main_TextView_Budget;
     @ViewBind(R.id.Main_Recycler_WavesView)
     private WaveView Main_Recycler_WavesView;
+    @ViewBind(R.id.Main_RecyclerView_NoteBooks)
+    private RecyclerView Main_RecyclerView_NoteBooks;//账本
+    @ViewBind(R.id.Main_LinearLayout_layouts)
+    private LinearLayout Main_LinearLayout_layouts;   //用来移动
+    @ViewBind(R.id.Main_SpringbackView)
+    private SpringbackView Main_SpringbackView;
+    private int noteBookId=1;  //账本Id
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -127,9 +138,47 @@ public class MainFragment extends MvpFragment<MainPresenter> implements MainView
     }
 
     @Override
+    public RecyclerView getMain_RecyclerView_NoteBooks() {
+        return Main_RecyclerView_NoteBooks;
+    }
+
+    @Override
+    public LinearLayout getMain_LinearLayout_layouts() {
+        return Main_LinearLayout_layouts;
+    }
+
+    @Override
+    public SpringbackView getMain_SpringbackView() {
+        return Main_SpringbackView;
+    }
+
+    @Override
+    public void setNoteBookId(int i) {
+        noteBookId=i;
+    }
+
+    @Override
+    public int getNoteBookId() {
+        return noteBookId;
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
-        Log.d("zengwei123","kank");
         mvpPresenter.Refresh();
+    }
+
+    public boolean SelectNoteBook(){
+        if(getMain_LinearLayout_layouts().getTranslationY()!=0){
+            ObjectAnimator waveShiftAnim = ObjectAnimator.ofFloat(getMain_LinearLayout_layouts()
+                    , "translationY"
+                    , Utils.dip2px(getActivityContext(),120)
+                    , 0);
+            waveShiftAnim.setDuration(500);
+            waveShiftAnim.start();
+            return true;
+        }else {
+            return false;
+        }
     }
 }

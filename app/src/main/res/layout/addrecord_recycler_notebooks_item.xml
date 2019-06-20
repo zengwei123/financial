@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="80dp"
+    android:layout_height="110dp"
+    android:layout_margin="5dp"
+    android:background="#ffffff">
+    <ImageView
+        android:id="@+id/AddRecord_RecyclerView_NoteBooks_Image"
+        android:src="@mipmap/notebook_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <TextView
+        android:id="@+id/AddRecord_RecyclerView_NoteBooks_Text"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:textSize="@dimen/sp_12"
+        android:text="旅游账本"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>

@@ -15,6 +15,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.cnitpm.financial.Model.AllModel;
 import com.cnitpm.financial.Model.CIModel;
 import com.cnitpm.financial.Model.CalendarRecord;
+import com.cnitpm.financial.Model.NoteBook;
 import com.cnitpm.financial.Model.TimeLine;
 import com.cnitpm.financial.R;
 
@@ -26,7 +27,7 @@ public class UtilRecyclerAdapter extends BaseMultiItemQuickAdapter<AllModel, Bas
     private Context context;
 
     private List<AllModel> data;
-
+    private Object object;
     public UtilRecyclerAdapter(Context context, Class c, List<AllModel> data) {
         super(data);
         this.c=c;
@@ -45,8 +46,19 @@ public class UtilRecyclerAdapter extends BaseMultiItemQuickAdapter<AllModel, Bas
         {
             addItemType(1, R.layout.addrecord_recycler_calculator_item);
         }
-        else if(c== CIModel.class){
+        else if(c== CIModel.class){   /**添加界面的类型列表**/
             addItemType(1, R.layout.arviewpage_recycler_classcloose_item);
+        }
+    }
+
+    public UtilRecyclerAdapter(Context context, Class c, List<AllModel> data,Object i) {
+        super(data);
+        this.c=c;
+        this.context=context;
+        this.data=data;
+        this.object=i;
+        if(c== NoteBook.class){  /**账本**/
+            addItemType(1, R.layout.addrecord_recycler_notebooks_item);
         }
     }
 
@@ -148,5 +160,28 @@ public class UtilRecyclerAdapter extends BaseMultiItemQuickAdapter<AllModel, Bas
             }
 
         }
+/**********************************************************************************************************************************************/
+        else if(c == NoteBook.class) /**账本**/
+        {
+            try {
+                if((int)object==helper.getAdapterPosition()){
+                    Glide.with(context).load(R.mipmap.notebook_bg1).into((ImageView) helper.getView(R.id.AddRecord_RecyclerView_NoteBooks_Image));
+                }else {
+                    Glide.with(context).load(R.mipmap.notebook_bg).into((ImageView) helper.getView(R.id.AddRecord_RecyclerView_NoteBooks_Image));
+                }
+                helper.setText(R.id.AddRecord_RecyclerView_NoteBooks_Text,((NoteBook)item.getData()).getNoteBookName());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public Object getObject() {
+        return object;
+    }
+
+    public void setObject(Object object) {
+        this.object = object;
     }
 }

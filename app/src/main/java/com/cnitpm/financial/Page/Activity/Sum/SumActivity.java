@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 
 import com.cnitpm.financial.Base.MvpActivity;
 import com.cnitpm.financial.Base.ViewBind;
+import com.cnitpm.financial.Page.Fragment.Main.MainFragment;
 import com.cnitpm.financial.R;
 
 public class SumActivity extends MvpActivity<SumPresenter> implements SumView{
@@ -48,5 +49,13 @@ public class SumActivity extends MvpActivity<SumPresenter> implements SumView{
     @Override
     public TabLayout getSum_TabLayout_Menu() {
         return Sum_TabLayout_Menu;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(((MainFragment)mvpPresenter.fragments.get(1)).SelectNoteBook()){
+        }else {
+            super.onBackPressed();
+        }
     }
 }

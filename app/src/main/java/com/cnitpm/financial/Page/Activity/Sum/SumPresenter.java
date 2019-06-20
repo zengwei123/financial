@@ -1,5 +1,6 @@
 package com.cnitpm.financial.Page.Activity.Sum;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -16,8 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 class SumPresenter extends BasePresenter<SumView> {
+    public final List<MvpFragment> fragments=new ArrayList<>();
     @Override
     public void init() {
+        /**viewpage显示的布局**/
+
+        fragments.add(new MainFragment());
+        fragments.add(new MainFragment());
+        fragments.add(new MainFragment());
+
         mvpView.getSum_TabLayout_Menu().addTab(mvpView.getSum_TabLayout_Menu().newTab().setIcon(R.mipmap.menu_chart_g));
         mvpView.getSum_TabLayout_Menu().addTab(mvpView.getSum_TabLayout_Menu().newTab().setIcon(R.mipmap.menu_add_k));
         mvpView.getSum_TabLayout_Menu().addTab(mvpView.getSum_TabLayout_Menu().newTab().setIcon(R.mipmap.menu_book_g));
@@ -48,16 +56,14 @@ class SumPresenter extends BasePresenter<SumView> {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
                 if( mvpView.getSum_TabLayout_Menu().getSelectedTabPosition()==1){
+                    Bundle bundle=new Bundle();
+                    bundle.putInt("noteBookId",((MainFragment)fragments.get(1)).getNoteBookId());
                     //添加按钮
-                    ((BaseActivity)mvpView.getThisActivity()).JumpActivity(mvpView.getActivityContext(), AddRecordActivity.class);
+                    ((BaseActivity)mvpView.getThisActivity()).JumpBundleActivity(mvpView.getActivityContext(), AddRecordActivity.class,bundle);
                 }
             }
         });
-        /**viewpage显示的布局**/
-        List<MvpFragment> fragments=new ArrayList<>();
-        fragments.add(new MainFragment());
-        fragments.add(new MainFragment());
-        fragments.add(new MainFragment());
+
         /**viewpage设置adapter**/
         SumFragmentAdapter sumFragmentAdapter=new SumFragmentAdapter(((FragmentActivity)mvpView.getThisActivity()).getSupportFragmentManager(), fragments);
         mvpView.getSum_ViewPager_Page().setAdapter(sumFragmentAdapter);

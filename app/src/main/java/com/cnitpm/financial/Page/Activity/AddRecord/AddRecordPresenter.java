@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -52,10 +53,15 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
 
     private String setChooseTime=null;
     private int noteBookId=1;  //账本Id
+    private int noteBookIndex=1;  //账本列表下标
+
     private  List<NoteBook> noteBooks;  //账本列表
     @Override
     public void init() {
-        noteBooks= new SqlOperation().SelectAll(NoteBook.class);  //获取全部账本
+        noteBookId=mvpView.getBundle().getInt("noteBookId");
+        setNoteBookView();
+
+
         setChooseTime=Utils.getFormat("yyyy-MM-dd",new Date().getTime());
         //标题
         mvpView.getInclude_Title().setText("记一笔");
@@ -66,7 +72,6 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
         mvpView.getAddRecord_TextView_Text().setText(Utils.RightClass[index]);
         //设置日期
         mvpView.getAddRecord_TextView_MessageTime().setText(setChooseTime);
-        mvpView.getAddRecord_TextView_NoteBook().setText("默认账本");
         mvpView.getAddRecord_TextView_AddMessage().setTypeface(Utils.getTypeFace(mvpView.getActivityContext()));
         mvpView.getAddRecord_TextView_AddMessage().setText("\ue9c6");
 
@@ -436,6 +441,7 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
     }
     /**添加进数据库的方法**/
     private void AddRecord(){
+
         TimeLine timeLine=new TimeLine();
         timeLine.setDirection(LR);  //方向  True=左（收入）   false=右（支出）
         timeLine.setIcon_Class(index);
@@ -444,11 +450,16 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
         timeLine.setNoteBook(noteBookId);
         timeLine.setPrice(Double.parseDouble(mvpView.getAddRecord_TextView_Sum().getText().toString().trim()));
         timeLine.setTime(setChooseTime);
-        if(timeLine.save()){
-            Toast.makeText(mvpView.getActivityContext(), "添加成功", Toast.LENGTH_SHORT).show();
+        if(Double.parseDouble(mvpView.getAddRecord_TextView_Sum().getText().toString().trim()) == 0.0){
+            Toast.makeText(mvpView.getActivityContext(), "0元添加没有意义呀，不给你添加", Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(mvpView.getActivityContext(), "添加失败", Toast.LENGTH_SHORT).show();
+            if(timeLine.save()){
+                Toast.makeText(mvpView.getActivityContext(), "添加成功", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(mvpView.getActivityContext(), "添加失败", Toast.LENGTH_SHORT).show();
+            }
         }
+
     }
     /**选择日期的方法**/
     private void getAddTime(){
@@ -489,6 +500,34 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
         params.height = (int) Utils.getWindow(false,mvpView.getThisActivity())-100;
         dialog.getWindow().setAttributes(params);
     }
+    /**账本列表**/
+    private void setNoteBookView(){
+        List<AllModel> allModels=new ArrayList<>();
+        noteBooks= new SqlOperation().SelectAll(NoteBook.class);  //获取全部账本
+
+        /**这里账本id  和账本列表 id是不同的，因为可能会有删除账本 **/
+        for(int i=0;i<noteBooks.size();i++){
+            allModels.add(new AllModel(noteBooks.get(i),1));
+            if(noteBooks.get(i).getId()==noteBookId){
+                noteBookIndex=i;
+            }
+        }
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mvpView.getActivityContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mvpView.getAddRecord_RecyclerView_NoteBooks().setLayoutManager(linearLayoutManager);
+        mvpView.getAddRecord_RecyclerView_NoteBooks().setAdapter(new UtilRecyclerAdapter(mvpView.getActivityContext(),NoteBook.class,allModels,noteBookIndex));
+        mvpView.getAddRecord_TextView_NoteBook().setText(noteBooks.get(noteBookIndex).getNoteBookName());
+        /**选择账本**/
+        ((UtilRecyclerAdapter)mvpView.getAddRecord_RecyclerView_NoteBooks().getAdapter()).setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ((UtilRecyclerAdapter)mvpView.getAddRecord_RecyclerView_NoteBooks().getAdapter()).setObject(position);
+                mvpView.getAddRecord_RecyclerView_NoteBooks().getAdapter().notifyDataSetChanged();
+                noteBookId=noteBooks.get(position).getId();
+                mvpView.getAddRecord_TextView_NoteBook().setText(noteBooks.get(position).getNoteBookName());
+            }
+        });
+    }
 
     /**添加点击事件**/
     private void setClick(){
@@ -500,6 +539,7 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
         mvpView.getAddRecord_TextView_Determine().setOnClickListener(this);
         mvpView.getAddRecord_TextView_MessageTime().setOnClickListener(this);
         mvpView.getAddRecord_TextView_NoteBook().setOnClickListener(this);
+        mvpView.getAddRecord_RelativeLayout_NoteBook().setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
@@ -546,7 +586,11 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
                 break;
             /*************************************/
             case R.id.AddRecord_TextView_NoteBook://账本
-                Toast.makeText(mvpView.getActivityContext(), "添加账本", Toast.LENGTH_SHORT).show();
+                mvpView.getAddRecord_RelativeLayout_NoteBook().setVisibility(View.VISIBLE);
+                break;
+            /*************************************/
+            case R.id.AddRecord_RelativeLayout_NoteBook://账本
+                mvpView.getAddRecord_RelativeLayout_NoteBook().setVisibility(View.GONE);
                 break;
             /*************************************/
             case R.id.AddRecord_TextView_Cancel://取消按钮

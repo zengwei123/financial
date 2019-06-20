@@ -1,5 +1,6 @@
 package com.cnitpm.financial.Page.Activity.AddRecord;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
@@ -37,5 +38,9 @@ public interface AddRecordView extends BaseView {
     TextView getAddRecord_TextView_Cancel();
     TextView getAddRecord_TextView_Determine();
 
+    RelativeLayout getAddRecord_RelativeLayout_NoteBook();
+    RecyclerView getAddRecord_RecyclerView_NoteBooks();
+
+    Bundle getBundle();
     String getImageUrl();
 }

@@ -70,12 +70,18 @@ public class AddRecordActivity extends MvpActivity<AddRecordPresenter> implement
     private TextView AddRecord_TextView_Cancel;  //取消按钮
     @ViewBind(R.id.AddRecord_TextView_Determine)
     private TextView AddRecord_TextView_Determine;  //确定
+    @ViewBind(R.id.AddRecord_RelativeLayout_NoteBook)
+    private RelativeLayout AddRecord_RelativeLayout_NoteBook;  //选择账本布局
+    @ViewBind(R.id.AddRecord_RecyclerView_NoteBooks)
+    private RecyclerView AddRecord_RecyclerView_NoteBooks;   //选择账本的列表
 
+    private Bundle bundle;
     private String imageUrl=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addrecord_layout);
+        bundle=getIntent().getBundleExtra("KEY");
         mvpPresenter.attachView(this);
         super.injectViews();
         mvpPresenter.init();
@@ -181,6 +187,21 @@ public class AddRecordActivity extends MvpActivity<AddRecordPresenter> implement
     }
 
     @Override
+    public RelativeLayout getAddRecord_RelativeLayout_NoteBook() {
+        return AddRecord_RelativeLayout_NoteBook;
+    }
+
+    @Override
+    public RecyclerView getAddRecord_RecyclerView_NoteBooks() {
+        return AddRecord_RecyclerView_NoteBooks;
+    }
+
+    @Override
+    public Bundle getBundle() {
+        return bundle;
+    }
+
+    @Override
     public String getImageUrl() {
         return imageUrl;
     }
@@ -189,6 +210,8 @@ public class AddRecordActivity extends MvpActivity<AddRecordPresenter> implement
     public void onBackPressed() {
         if(getAddRecord_RelativeLayout_layout().getVisibility()== View.VISIBLE){
             getAddRecord_RelativeLayout_layout().setVisibility(View.GONE);
+        }else if(getAddRecord_RelativeLayout_NoteBook().getVisibility()== View.VISIBLE){
+            getAddRecord_RelativeLayout_NoteBook().setVisibility(View.GONE);
         }else {
             super.onBackPressed();
         }
