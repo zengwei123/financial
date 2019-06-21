@@ -1,10 +1,12 @@
 package com.cnitpm.financial.Util;
 
+import android.database.Cursor;
 import android.graphics.Movie;
 
 import org.litepal.LitePal;
 import org.litepal.crud.LitePalSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**数据库操作类**/
@@ -52,5 +54,18 @@ public class SqlOperation  {
      */
     public List SelectWhere(Class c,String... conditions){
         return LitePal.where(conditions).find(c);
+    }
+
+    /**
+     * sql 查询
+     * @return
+     */
+    public  List<String> SelectSql(String... conditions){
+        Cursor cursor= LitePal.findBySQL(conditions);
+        List<String> list=new ArrayList<>();
+        while (cursor.moveToNext()){
+                list.add(cursor.getString(cursor.getColumnIndex("A")));
+        }
+        return list;
     }
 }

@@ -4,7 +4,9 @@ package com.cnitpm.financial.Model;
 import org.litepal.annotation.Column;
 import org.litepal.crud.LitePalSupport;
 
-public class NoteBook extends LitePalSupport {
+import java.io.Serializable;
+
+public class NoteBook extends LitePalSupport implements Serializable {
     private int id;
     @Column(unique = true)
     private String NoteBookName;

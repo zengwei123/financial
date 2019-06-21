@@ -8,17 +8,19 @@ public class CalendarRecord {
     private Boolean Direction=true;   //方向  True=左（收入）   false=右（支出）
     private int Icon_Class=0;   //时间轴图标和类型下标
     private String Message=null; //详细内容
+    private String ImageUrl;
     private String Time=null;   //日期
     private double Price=0;   //价格
     private int NoteBook=0;   //账本id
 
-    public CalendarRecord(Boolean direction, int icon_Class, String message, String time, double price,int NoteBook) {
-        this.Direction = direction;
-        this.Icon_Class = icon_Class;
-        this.Message = message;
-        this.Time = time;
-        this.Price = price;
-        this.NoteBook=NoteBook;
+    public CalendarRecord(Boolean direction, int icon_Class, String message, String imageUrl, String time, double price, int noteBook) {
+        Direction = direction;
+        Icon_Class = icon_Class;
+        Message = message;
+        ImageUrl = imageUrl;
+        Time = time;
+        Price = price;
+        NoteBook = noteBook;
     }
 
     public Boolean getDirection() {
@@ -67,5 +69,13 @@ public class CalendarRecord {
 
     public void setNoteBook(int noteBook) {
         NoteBook = noteBook;
+    }
+
+    public String getImageUrl() {
+        return ImageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        ImageUrl = imageUrl;
     }
 }

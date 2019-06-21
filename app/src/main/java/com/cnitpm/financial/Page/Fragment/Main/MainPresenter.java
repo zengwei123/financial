@@ -133,7 +133,9 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.Main_TextView_Calendar:
-                ((BaseActivity)mvpView.getThisActivity()).JumpActivity(mvpView.getActivityContext(), CalendarActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("key",noteBooks.get(noteBookIndex));
+                ((BaseActivity)mvpView.getThisActivity()).JumpBundleActivity(mvpView.getActivityContext(), CalendarActivity.class,bundle);
                 break;
             case R.id.Main_TextView_NoteBook:
                 ObjectAnimator waveShiftAnim;
@@ -165,8 +167,6 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
 
     /**更新 获取信息方法**/
     public void Refresh(){
-        Log.d("zengwei123",noteBooks.get(noteBookIndex).getId()+"账本id");
-
 
         double Money_L=0,Money_R=0;   //本月的支出与收入
         double balance=noteBooks.get(noteBookIndex).getBudget();

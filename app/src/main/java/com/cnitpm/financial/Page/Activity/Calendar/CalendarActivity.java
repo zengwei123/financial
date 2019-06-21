@@ -28,10 +28,13 @@ public class CalendarActivity extends MvpActivity<CalendarPresenter> implements 
     private ImageView Include_image;
     @ViewBind(R.id.Calendar_RecyclerView)
     private RecyclerView Calendar_RecyclerView;
+
+    private Bundle bundle;  //用来获取当前的账本信息
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_layout);
+        bundle=getIntent().getBundleExtra("KEY");
         mvpPresenter.attachView(this);
         super.injectViews();
         mvpPresenter.init();
@@ -80,5 +83,10 @@ public class CalendarActivity extends MvpActivity<CalendarPresenter> implements 
     @Override
     public RecyclerView getCalendar_RecyclerView() {
         return Calendar_RecyclerView;
+    }
+
+    @Override
+    public Bundle getBundle() {
+        return bundle;
     }
 }
