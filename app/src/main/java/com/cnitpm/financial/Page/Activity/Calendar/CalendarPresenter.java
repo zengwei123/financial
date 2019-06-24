@@ -1,16 +1,19 @@
 package com.cnitpm.financial.Page.Activity.Calendar;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.cnitpm.financial.Base.BaseActivity;
 import com.cnitpm.financial.Base.BasePresenter;
 import com.cnitpm.financial.Model.AllModel;
 import com.cnitpm.financial.Model.CalendarRecord;
 import com.cnitpm.financial.Model.NoteBook;
 import com.cnitpm.financial.Model.TimeLine;
+import com.cnitpm.financial.Page.Activity.AddRecord.AddRecordActivity;
 import com.cnitpm.financial.R;
 import com.cnitpm.financial.Util.SqlOperation;
 import com.cnitpm.financial.Util.UtilRecyclerAdapter;
@@ -27,7 +30,7 @@ import java.util.List;
 public class CalendarPresenter extends BasePresenter<CalendarView> {
     private NoteBook noteBook;
     private double daybalance=0;
-
+    private String BTime=null;
     private List<AllModel> allModels=new ArrayList<>();
     @Override
     public void init() {
@@ -40,6 +43,16 @@ public class CalendarPresenter extends BasePresenter<CalendarView> {
                 mvpView.getThisActivity().finish();
             }
         });
+        mvpView.getInclude_image().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle=new Bundle();
+                bundle.putString("BTime",BTime);
+                bundle.putSerializable("key",noteBook);
+                ((BaseActivity)mvpView.getThisActivity()).JumpBundleActivity(mvpView.getActivityContext(), AddRecordActivity.class,bundle);
+            }
+        });
+
         mvpView.getInclude_Title().setText("往日账单("+noteBook.getNoteBookName()+")");
         //当前的月份
         mvpView.getCalendar_TextView_YearMonth().setText(Utils.getFormat("YYYY年MM月",new Date().getTime()));
@@ -56,15 +69,11 @@ public class CalendarPresenter extends BasePresenter<CalendarView> {
                 //获取日历当前的年月
                 mvpView.getCalendar_TextView_YearMonth().setText(date.lunar.lunarYear+"年"+(date.lunar.lunarMonth+1)+"月");
                 //日历回调 NDate包含公历、农历、节气、节假日、闰年等信息
-                if(isClick){
-                    mvpView.getCalendar_TextView_YearMonth().setText(date.localDate.toString());
-                    DayRecord(date.localDate.toString());
-                    mvpView.getCalendar_RecyclerView().getAdapter().notifyDataSetChanged();
-//                    mvpView.getCalendar_RecyclerView().setAdapter(new UtilRecyclerAdapter(mvpView.getActivityContext(),CalendarRecord.class,null));
-                    /**添加空布局**/
-                    View view=  LayoutInflater.from(mvpView.getActivityContext()).inflate(R.layout.z_recycler_nodata_item, null);
-                    ((UtilRecyclerAdapter)mvpView.getCalendar_RecyclerView().getAdapter()).setEmptyView(view);
-                }
+                mvpView.getCalendar_TextView_YearMonth().setText(date.localDate.toString());
+                DayRecord(date.localDate.toString());
+                BTime=date.localDate.toString();
+                mvpView.getCalendar_RecyclerView().getAdapter().notifyDataSetChanged();
+
             }
             @Override
             public void onCalendarStateChanged(boolean isMonthSate) {
@@ -82,7 +91,6 @@ public class CalendarPresenter extends BasePresenter<CalendarView> {
 
     private void DayRecord(String time){
         allModels.clear();
-        List<String> pointList =new ArrayList<>();
         List<TimeLine> timeLines=new SqlOperation().SelectWhere(TimeLine.class,"Time=? and NoteBook=?",time,noteBook.getId()+"");
         for(int i=0;i<timeLines.size();i++){
             TimeLine timeLine=timeLines.get(i);
@@ -102,17 +110,17 @@ public class CalendarPresenter extends BasePresenter<CalendarView> {
     }
 
     private void chaochu(String time){
-        double sumprice=0;
-        //
-        List<String> timeLines=new SqlOperation().SelectSql("select sum(Price) as A from timeline where time like ? and notebook=? group by time;",time+"%",noteBook.getId()+"");
+        List<String> timeLines=new SqlOperation().SelectSql("select sum(Price) as A,time as B from timeline where time like ? and notebook=? group by time;",time+"%",noteBook.getId()+"");
+        List<String> pointList=new ArrayList<>();
         for(String s:timeLines){
-            Log.d("zengwie123",s.toString());
+            Log.d("zengwie123",s);
+            String[] strs=s.split("#");
+            if(Double.parseDouble(strs[0])>daybalance){
+                pointList.add(strs[1]);
+            }
         }
-//        if(sumPrice>daybalance){
-//            pointList.add(time);
-//        }
-//        InnerPainter innerPainter = (InnerPainter) mvpView.getCalendar_Miui9Calendar().getCalendarPainter();
-//        innerPainter.setPointList(pointList);
+        InnerPainter innerPainter = (InnerPainter) mvpView.getCalendar_Miui9Calendar().getCalendarPainter();
+        innerPainter.setPointList(pointList);
     }
 
     private void getDaybalance(int m){

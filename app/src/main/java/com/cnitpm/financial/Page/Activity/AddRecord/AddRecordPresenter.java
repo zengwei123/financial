@@ -71,6 +71,10 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
         Glide.with(mvpView.getActivityContext()).load(Utils.RightIcon[index]).into(mvpView.getAddRecord_ImageView_Icon());
         mvpView.getAddRecord_TextView_Text().setText(Utils.RightClass[index]);
         //设置日期
+        if(mvpView.getBundle().getString("BTime")!=null){
+            setChooseTime=mvpView.getBundle().getString("BTime");
+        }
+
         mvpView.getAddRecord_TextView_MessageTime().setText(setChooseTime);
         mvpView.getAddRecord_TextView_AddMessage().setTypeface(Utils.getTypeFace(mvpView.getActivityContext()));
         mvpView.getAddRecord_TextView_AddMessage().setText("\ue9c6");

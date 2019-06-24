@@ -64,7 +64,7 @@ public class SqlOperation  {
         Cursor cursor= LitePal.findBySQL(conditions);
         List<String> list=new ArrayList<>();
         while (cursor.moveToNext()){
-                list.add(cursor.getString(cursor.getColumnIndex("A")));
+                list.add(cursor.getString(cursor.getColumnIndex("A"))+"#"+cursor.getString(cursor.getColumnIndex("B")));
         }
         return list;
     }
