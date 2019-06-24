@@ -508,7 +508,6 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
     private void setNoteBookView(){
         List<AllModel> allModels=new ArrayList<>();
         noteBooks= new SqlOperation().SelectAll(NoteBook.class);  //获取全部账本
-
         /**这里账本id  和账本列表 id是不同的，因为可能会有删除账本 **/
         for(int i=0;i<noteBooks.size();i++){
             allModels.add(new AllModel(noteBooks.get(i),1));

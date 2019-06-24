@@ -23,14 +23,13 @@ import com.necer.listener.OnCalendarChangedListener;
 import com.necer.painter.InnerPainter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 public class CalendarPresenter extends BasePresenter<CalendarView> {
     private NoteBook noteBook;
     private double daybalance=0;
-    private String BTime=null;
+    public String BTime=null;
     private List<AllModel> allModels=new ArrayList<>();
     @Override
     public void init() {
@@ -48,8 +47,8 @@ public class CalendarPresenter extends BasePresenter<CalendarView> {
             public void onClick(View v) {
                 Bundle bundle=new Bundle();
                 bundle.putString("BTime",BTime);
-                bundle.putSerializable("key",noteBook);
-                ((BaseActivity)mvpView.getThisActivity()).JumpBundleActivity(mvpView.getActivityContext(), AddRecordActivity.class,bundle);
+                bundle.putInt("noteBookId",noteBook.getId());
+                ((BaseActivity)mvpView.getThisActivity()).JumpBundleActivity(mvpView.getActivityContext(), AddRecordActivity.class,bundle,110);
             }
         });
 
@@ -62,7 +61,6 @@ public class CalendarPresenter extends BasePresenter<CalendarView> {
 
         /**显示超额支出日期**/
         DayRecord(Utils.getFormat("YYYY-MM-dd",new Date().getTime()));
-
         mvpView.getCalendar_Miui9Calendar().setOnCalendarChangedListener(new OnCalendarChangedListener() {
             @Override
             public void onCalendarDateChanged(NDate date, boolean isClick) {
@@ -89,11 +87,12 @@ public class CalendarPresenter extends BasePresenter<CalendarView> {
         ((UtilRecyclerAdapter)mvpView.getCalendar_RecyclerView().getAdapter()).setEmptyView(view);
     }
 
-    private void DayRecord(String time){
+    public void DayRecord(String time){
         allModels.clear();
         List<TimeLine> timeLines=new SqlOperation().SelectWhere(TimeLine.class,"Time=? and NoteBook=?",time,noteBook.getId()+"");
         for(int i=0;i<timeLines.size();i++){
             TimeLine timeLine=timeLines.get(i);
+            Log.d("zengwei123",timeLine.toString());
             CalendarRecord calendarRecord=new CalendarRecord(timeLine.getDirection()
                     ,timeLine.getIcon_Class()
                     ,timeLine.getMessage()
@@ -109,11 +108,10 @@ public class CalendarPresenter extends BasePresenter<CalendarView> {
         }
     }
 
-    private void chaochu(String time){
-        List<String> timeLines=new SqlOperation().SelectSql("select sum(Price) as A,time as B from timeline where time like ? and notebook=? group by time;",time+"%",noteBook.getId()+"");
+    public void chaochu(String time){
+        List<String> timeLines=new SqlOperation().SelectSql("select sum(Price) as A,time as B from timeline where time like ? and notebook=? or  direction=?  group by time;",time+"%",noteBook.getId()+"",false+"");
         List<String> pointList=new ArrayList<>();
         for(String s:timeLines){
-            Log.d("zengwie123",s);
             String[] strs=s.split("#");
             if(Double.parseDouble(strs[0])>daybalance){
                 pointList.add(strs[1]);

@@ -213,6 +213,7 @@ public class AddRecordActivity extends MvpActivity<AddRecordPresenter> implement
         }else if(getAddRecord_RelativeLayout_NoteBook().getVisibility()== View.VISIBLE){
             getAddRecord_RelativeLayout_NoteBook().setVisibility(View.GONE);
         }else {
+            setResult(110,new Intent());
             super.onBackPressed();
         }
     }

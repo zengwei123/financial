@@ -178,7 +178,16 @@ public class BaseActivity extends AppCompatActivity {
         intent.putExtra("KEY",bundle);
         startActivity(intent);
     }
-
+    /**
+     * 传参数跳转activity 方法
+     * @param context
+     * @param iclass
+     */
+    public void JumpBundleActivity(Context context, Class iclass,Bundle bundle,int code){
+        intent=new Intent(context,iclass);
+        intent.putExtra("KEY",bundle);
+        startActivityForResult(intent,code);
+    }
     /**控件绑定关键方法**/
     protected void injectViews(){
         Field[] fields = this.getClass().getDeclaredFields();

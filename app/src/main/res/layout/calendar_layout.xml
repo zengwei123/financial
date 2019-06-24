@@ -63,14 +63,12 @@
             style="@style/weekIndicatorStyle"
             android:text="六" />
     </LinearLayout>
-
     <com.necer.calendar.Miui9Calendar
         android:id="@+id/Calendar_Miui9Calendar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:pointColor="@color/Cff0000"
         app:defaultCalendar="week">
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/Calendar_RecyclerView"
             android:layout_width="match_parent"

@@ -88,5 +88,16 @@ public class TimeLine extends LitePalSupport {
         NoteBook = noteBook;
     }
 
-
+    @Override
+    public String toString() {
+        return "TimeLine{" +
+                "Direction=" + Direction +
+                ", Icon_Class=" + Icon_Class +
+                ", Message='" + Message + '\'' +
+                ", ImageUrl='" + ImageUrl + '\'' +
+                ", Time='" + Time + '\'' +
+                ", Price=" + Price +
+                ", NoteBook=" + NoteBook +
+                '}';
+    }
 }

@@ -2,6 +2,7 @@ package com.cnitpm.financial.Util;
 
 import android.database.Cursor;
 import android.graphics.Movie;
+import android.util.Log;
 
 import org.litepal.LitePal;
 import org.litepal.crud.LitePalSupport;
@@ -63,6 +64,7 @@ public class SqlOperation  {
     public  List<String> SelectSql(String... conditions){
         Cursor cursor= LitePal.findBySQL(conditions);
         List<String> list=new ArrayList<>();
+        Log.d("zengwei123","查询的长度"+list.size());
         while (cursor.moveToNext()){
                 list.add(cursor.getString(cursor.getColumnIndex("A"))+"#"+cursor.getString(cursor.getColumnIndex("B")));
         }

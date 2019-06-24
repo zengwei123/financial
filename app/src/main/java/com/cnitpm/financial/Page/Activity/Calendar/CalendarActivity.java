@@ -2,7 +2,9 @@ package com.cnitpm.financial.Page.Activity.Calendar;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,7 +12,10 @@ import android.widget.TextView;
 import com.cnitpm.financial.Base.MvpActivity;
 import com.cnitpm.financial.Base.ViewBind;
 import com.cnitpm.financial.R;
+import com.cnitpm.financial.Util.Utils;
 import com.necer.calendar.Miui9Calendar;
+
+import java.util.Date;
 
 /**
  * 日历  查看往日记录
@@ -88,5 +93,18 @@ public class CalendarActivity extends MvpActivity<CalendarPresenter> implements 
     @Override
     public Bundle getBundle() {
         return bundle;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case 110:
+                /**这里是当从日历跳转到 添加页面后添加完之后 返回  需要刷新数据 **/
+                mvpPresenter.DayRecord(mvpPresenter.BTime);
+                getCalendar_RecyclerView().getAdapter().notifyDataSetChanged();
+                mvpPresenter.chaochu(Utils.getFormat("YYYY-MM",new Date().getTime()));
+                break;
+        }
     }
 }
