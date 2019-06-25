@@ -59,6 +59,7 @@ public class UtilRecyclerAdapter extends BaseMultiItemQuickAdapter<AllModel, Bas
         this.object=i;
         if(c== NoteBook.class){  /**账本**/
             addItemType(1, R.layout.addrecord_recycler_notebooks_item);
+            addItemType(2, R.layout.addrecord_recycler_notebooks_add_item);
         }
     }
 
@@ -134,6 +135,8 @@ public class UtilRecyclerAdapter extends BaseMultiItemQuickAdapter<AllModel, Bas
                     helper.setText(R.id.Calendar_RecyclerView_CalendarRecord_Price,"-"+calendarRecord.getPrice());
                     ((TextView)helper.getView(R.id.Calendar_RecyclerView_CalendarRecord_Price)).setTextColor(Color.parseColor("#2b2b2b"));
                 }
+                //删除按钮 删除删除删除
+                helper.addOnClickListener(R.id.Calendar_RecyclerView_CalendarRecord_right);
             }catch (Exception e){
                 /**出错说明是分割线  不进行任何操作**/
             }
@@ -164,12 +167,14 @@ public class UtilRecyclerAdapter extends BaseMultiItemQuickAdapter<AllModel, Bas
         else if(c == NoteBook.class) /**账本**/
         {
             try {
-                if((int)object==helper.getAdapterPosition()){
-                    Glide.with(context).load(R.mipmap.notebook_bg1).into((ImageView) helper.getView(R.id.AddRecord_RecyclerView_NoteBooks_Image));
-                }else {
-                    Glide.with(context).load(R.mipmap.notebook_bg).into((ImageView) helper.getView(R.id.AddRecord_RecyclerView_NoteBooks_Image));
+                if(item.getItemType()==1){
+                    if((int)object==helper.getAdapterPosition()){
+                        Glide.with(context).load(R.mipmap.notebook_bg1).into((ImageView) helper.getView(R.id.AddRecord_RecyclerView_NoteBooks_Image));
+                    }else {
+                        Glide.with(context).load(R.mipmap.notebook_bg).into((ImageView) helper.getView(R.id.AddRecord_RecyclerView_NoteBooks_Image));
+                    }
+                    helper.setText(R.id.AddRecord_RecyclerView_NoteBooks_Text,((NoteBook)item.getData()).getNoteBookName());
                 }
-                helper.setText(R.id.AddRecord_RecyclerView_NoteBooks_Text,((NoteBook)item.getData()).getNoteBookName());
             }catch (Exception e){
                 e.printStackTrace();
             }

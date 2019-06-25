@@ -35,6 +35,7 @@ public class SpringbackView extends ScrollView {
 
     private float startY;
     private SpringBackViewEvent springBackViewEvent;
+    private boolean isHua=true;
     /**这个方法的作用就是在完成View的布局实例化后的回调**/
     @Override
     protected void onFinishInflate() {
@@ -81,55 +82,58 @@ public class SpringbackView extends ScrollView {
      */
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        //为空不管他
-        if (childView == null) {
-            return super.dispatchTouchEvent(ev);
-        }
-        //获取事件
-        int action = ev.getAction();
-        //
-        switch (action) {
-            case MotionEvent.ACTION_DOWN:
-                startY = ev.getY();  //按下的坐标
-                break;
-
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
-
-                if (!havaMoved)
+        //控制是否能够滑动
+        if(isHua){
+            //为空不管他
+            if (childView == null) {
+                return super.dispatchTouchEvent(ev);
+            }
+            //获取事件
+            int action = ev.getAction();
+            //
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                    startY = ev.getY();  //按下的坐标
                     break;
 
-                //位移的动画
-                TranslateAnimation anim = new TranslateAnimation(0, 0, childView.getTop(), originalRect.top);
-                if (springBackViewEvent!=null){
-                    if(childView.getTop()>0){
-                        springBackViewEvent.Translate(true);
-                    }else {
-                        springBackViewEvent.Translate(false);
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+
+                    if (!havaMoved)
+                        break;
+
+                    //位移的动画
+                    TranslateAnimation anim = new TranslateAnimation(0, 0, childView.getTop(), originalRect.top);
+                    if (springBackViewEvent!=null){
+                        if(childView.getTop()>0){
+                            springBackViewEvent.Translate(true);
+                        }else {
+                            springBackViewEvent.Translate(false);
+                        }
                     }
-                }
-                anim.setDuration(ANIM_TIME);  //动画时间
-                childView.startAnimation(anim);  //给控件设置动画时间
-                // 将标志位设回false
-                havaMoved = false;  //没有移动
+                    anim.setDuration(ANIM_TIME);  //动画时间
+                    childView.startAnimation(anim);  //给控件设置动画时间
+                    // 将标志位设回false
+                    havaMoved = false;  //没有移动
 
-                resetViewLayout();
+                    resetViewLayout();
 
-                break;
-            case MotionEvent.ACTION_MOVE:
-                //移动事件
-                float nowY = ev.getY();  //获取坐标
-                int deltaY = (int) (nowY - startY);  //移动的距离 实际长度
-                int offset = (int) (deltaY * MOVE_DELAY);  //移动的距离
-                childView.layout(originalRect.left, originalRect.top + offset, originalRect.right, originalRect.bottom + offset);
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    //移动事件
+                    float nowY = ev.getY();  //获取坐标
+                    int deltaY = (int) (nowY - startY);  //移动的距离 实际长度
+                    int offset = (int) (deltaY * MOVE_DELAY);  //移动的距离
+                    childView.layout(originalRect.left, originalRect.top + offset, originalRect.right, originalRect.bottom + offset);
 
-                havaMoved = true;
+                    havaMoved = true;
 
-                break;
-            default:
-                break;
+                    break;
+                default:
+                    break;
+            }
+
         }
-
         return super.dispatchTouchEvent(ev);
     }
 
@@ -147,5 +151,13 @@ public class SpringbackView extends ScrollView {
 
     public void setSpringBackViewEvent(SpringBackViewEvent springBackViewEvent) {
         this.springBackViewEvent = springBackViewEvent;
+    }
+
+    public boolean isHua() {
+        return isHua;
+    }
+
+    public void setHua(boolean hua) {
+        isHua = hua;
     }
 }

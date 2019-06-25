@@ -445,7 +445,6 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
     }
     /**添加进数据库的方法**/
     private void AddRecord(){
-
         TimeLine timeLine=new TimeLine();
         timeLine.setDirection(LR);  //方向  True=左（收入）   false=右（支出）
         timeLine.setIcon_Class(index);

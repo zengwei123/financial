@@ -1,10 +1,14 @@
 package com.cnitpm.financial.Page.Fragment.Main;
 
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -18,9 +22,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cnitpm.financial.Base.BaseActivity;
@@ -68,7 +78,6 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
         mvpView.getMain_SpringbackView().setSpringBackViewEvent(new SpringbackView.SpringBackViewEvent() {
             @Override
             public void Translate(boolean b) {
-
                 if(mvpView.getMain_LinearLayout_layouts().getTranslationY()!=0){
                     ObjectAnimator waveShiftAnim= ObjectAnimator.ofFloat(mvpView.getMain_LinearLayout_layouts()
                             , "translationY"
@@ -88,7 +97,7 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
 
     /**账本列表**/
     private void setNoteBookView(){
-        List<AllModel> allModels=new ArrayList<>();
+        final List<AllModel> allModels=new ArrayList<>();
         noteBooks= new SqlOperation().SelectAll(NoteBook.class);  //获取全部账本
         /**预算**/
         budget=noteBooks.get(0).getBudget();
@@ -96,6 +105,7 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
         for(int i=0;i<noteBooks.size();i++){
             allModels.add(new AllModel(noteBooks.get(i),1));
         }
+        allModels.add(new AllModel(noteBooks.get(0),2));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mvpView.getActivityContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mvpView.getMain_RecyclerView_NoteBooks().setLayoutManager(linearLayoutManager);
@@ -105,13 +115,18 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
         ((UtilRecyclerAdapter)mvpView.getMain_RecyclerView_NoteBooks().getAdapter()).setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ((UtilRecyclerAdapter)mvpView.getMain_RecyclerView_NoteBooks().getAdapter()).setObject(position);
-                mvpView.getMain_RecyclerView_NoteBooks().getAdapter().notifyDataSetChanged();
-                mvpView.setNoteBookId(noteBooks.get(position).getId());
-                mvpView.getMain_TextView_NoteBook().setText(noteBooks.get(position).getNoteBookName());
-                noteBookIndex=position;
-                selectNoteBook();
+                if(position==allModels.size()-1){
 
+                    addNoteBook("新建账本",true);
+                    Toast.makeText(mvpView.getActivityContext(), "你按你妈呢！", Toast.LENGTH_SHORT).show();
+                }else {
+                    ((UtilRecyclerAdapter)mvpView.getMain_RecyclerView_NoteBooks().getAdapter()).setObject(position);
+                    mvpView.getMain_RecyclerView_NoteBooks().getAdapter().notifyDataSetChanged();
+                    mvpView.setNoteBookId(noteBooks.get(position).getId());
+                    mvpView.getMain_TextView_NoteBook().setText(noteBooks.get(position).getNoteBookName());
+                    noteBookIndex=position;
+                    selectNoteBook();
+                }
             }
         });
     }
@@ -155,7 +170,7 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
                 waveShiftAnim.start();
                 break;
             case R.id.Main_TextView_Search:
-                if(new NoteBook(2,"默认账本3", Utils.getFormat("YYYY-MM-dd",new Date().getTime()),1000).save()){
+                if(new NoteBook("默认账本3", Utils.getFormat("YYYY-MM-dd",new Date().getTime()),1000).save()){
                     Toast.makeText(mvpView.getActivityContext(), "添加成功", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(mvpView.getActivityContext(), "添加失败", Toast.LENGTH_SHORT).show();
@@ -199,7 +214,17 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
         /**添加空布局**/
         View view=  LayoutInflater.from(mvpView.getActivityContext()).inflate(R.layout.z_recycler_nodata_item1, null);
         ((UtilRecyclerAdapter)mvpView.getMain_Recycler_TimeLine().getAdapter()).setEmptyView(view);
-
+        FrameLayout.LayoutParams layoutParams= (FrameLayout.LayoutParams) mvpView.getMain_Recycler_TimeLine().getLayoutParams();
+        /**当没有数据的时候没有数据提示的居中显示 有数据则置顶显示**/
+        if(allModels.size()!=0){
+            layoutParams.gravity= Gravity.TOP;
+            mvpView.getMain_SpringbackView().setHua(true);  //允许滑动
+            mvpView.getMain_Recycler_TimeLine().setLayoutParams(layoutParams);
+        }else {
+            layoutParams.gravity= Gravity.CENTER;
+            mvpView.getMain_SpringbackView().setHua(false);
+            mvpView.getMain_Recycler_TimeLine().setLayoutParams(layoutParams);
+        }
 
         //控件波浪所占的多少
         if(Money_R>budget){
@@ -236,5 +261,38 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
         //运行速度
         mAnimatorSet.playTogether(animators);
         mAnimatorSet.start();
+    }
+    /**添加账本的方法**/
+    private void addNoteBook(String titleStr,boolean b){
+        AlertDialog.Builder builder = new AlertDialog.Builder(mvpView.getActivityContext());
+        View dialogView = View.inflate(mvpView.getActivityContext(), R.layout.z_dialog_notebook_layout, null);
+        TextView title=dialogView.findViewById(R.id.Z_Dialog_NoteBook_Title);  //标题
+        title.setText(titleStr);
+        EditText editText=dialogView.findViewById(R.id.Z_Dialog_NoteBook_EditText);  //内容
+        editText.requestFocus();
+
+        TextView Y=dialogView.findViewById(R.id.Z_Dialog_NoteBook_Y);  //确认
+        Y.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        TextView N=dialogView.findViewById(R.id.Z_Dialog_NoteBook_N);  //取消
+        N.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+         AlertDialog dialog = builder.create();
+         //添加自定义布局
+        dialog.setView(dialogView);
+        dialog.show();
+        //设置宽度
+        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        params.width = (int) Utils.getWindow(true,mvpView.getThisActivity())-100;
+        dialog.getWindow().setAttributes(params);
+
     }
 }

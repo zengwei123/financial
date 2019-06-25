@@ -3,6 +3,9 @@
     <dimen name="Text_Big_sp">18sp</dimen>
     <dimen name="Text_InThe_sp">15sp</dimen>
     <dimen name="Text_Small_sp">12sp</dimen>
+    <dimen name="Text_13sp">13sp</dimen>
+    <dimen name="Text_14sp">14sp</dimen>
+    <dimen name="Text_16sp">16sp</dimen>
     <dimen name="height_60dp">60dp</dimen>
     <dimen name="height_50dp">50dp</dimen>
     <dimen name="height_40dp">40dp</dimen>

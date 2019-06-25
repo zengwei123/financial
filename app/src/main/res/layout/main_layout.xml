@@ -33,7 +33,7 @@
                 android:background="@drawable/mian_head_date"
                 android:gravity="center"
                 android:textColor="@color/CF2F2F2"
-                android:textSize="@dimen/sp_12" />
+                android:textSize="@dimen/Text_13sp" />
             <TextView
                 android:id="@+id/Main_TextView_NoteBook"
                 android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
                 android:textColor="@color/CF2F2F2"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:textSize="@dimen/sp_12" />
+                android:textSize="@dimen/Text_13sp" />
             <TextView
                 android:id="@+id/Main_TextView_Search"
                 android:layout_width="25dp"
@@ -57,7 +57,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:textColor="@color/CF2F2F2"
-                android:textSize="@dimen/sp_12" />
+                android:textSize="@dimen/Text_13sp" />
             <TextView
                 android:id="@+id/Main_TextView_Calendar"
                 android:layout_width="25dp"
@@ -68,7 +68,7 @@
                 android:layout_centerVertical="true"
                 android:gravity="center"
                 android:textColor="@color/CF2F2F2"
-                android:textSize="@dimen/sp_12" />
+                android:textSize="@dimen/Text_13sp" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_marginTop="5dp"
@@ -78,7 +78,7 @@
                 android:id="@+id/Main_TextView_Money_L"
                 android:layout_toLeftOf="@+id/Main_Recycler_WavesView"
                 android:gravity="center"
-                android:textSize="@dimen/sp_12"
+                android:textSize="@dimen/Text_InThe_sp"
                 android:textColor="@color/C2b2b2b"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
@@ -95,7 +95,7 @@
             <TextView
                 android:id="@+id/Main_TextView_Budget"
                 android:layout_width="60dp"
-                android:textSize="10sp"
+                android:textSize="@dimen/Text_Small_sp"
                 android:textColor="@color/C2b2b2b"
                 android:text="预 算"
                 android:layout_height="match_parent"
@@ -105,7 +105,7 @@
                 android:id="@+id/Main_TextView_Money_R"
                 android:layout_toRightOf="@+id/Main_Recycler_WavesView"
                 android:gravity="center"
-                android:textSize="@dimen/sp_12"
+                android:textSize="@dimen/Text_InThe_sp"
                 android:textColor="@color/C2b2b2b"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

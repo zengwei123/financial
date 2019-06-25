@@ -5,6 +5,7 @@ package com.cnitpm.financial.Model;
  * 数据更TimeLine 相同 建一个新的主要是recyclerView 的布局不用  需要区分
  */
 public class CalendarRecord {
+    private int id;
     private Boolean Direction=true;   //方向  True=左（收入）   false=右（支出）
     private int Icon_Class=0;   //时间轴图标和类型下标
     private String Message=null; //详细内容
@@ -13,7 +14,8 @@ public class CalendarRecord {
     private double Price=0;   //价格
     private int NoteBook=0;   //账本id
 
-    public CalendarRecord(Boolean direction, int icon_Class, String message, String imageUrl, String time, double price, int noteBook) {
+    public CalendarRecord(int id,Boolean direction, int icon_Class, String message, String imageUrl, String time, double price, int noteBook) {
+        this.id=id;
         Direction = direction;
         Icon_Class = icon_Class;
         Message = message;
@@ -21,6 +23,14 @@ public class CalendarRecord {
         Time = time;
         Price = price;
         NoteBook = noteBook;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Boolean getDirection() {

@@ -35,4 +35,6 @@ dependencies {
     implementation 'org.litepal.android:java:3.0.0'  //数据库操作库
     //图片选择器
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+    //滑动删除
+    implementation 'com.github.anzaizai:EasySwipeMenuLayout:1.1.2'
 }

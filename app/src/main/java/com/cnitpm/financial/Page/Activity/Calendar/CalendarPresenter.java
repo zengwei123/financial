@@ -6,7 +6,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cnitpm.financial.Base.BaseActivity;
 import com.cnitpm.financial.Base.BasePresenter;
 import com.cnitpm.financial.Model.AllModel;
@@ -82,6 +84,21 @@ public class CalendarPresenter extends BasePresenter<CalendarView> {
         /**每日查询**/
         mvpView.getCalendar_RecyclerView().setLayoutManager(new LinearLayoutManager(mvpView.getActivityContext()));
         mvpView.getCalendar_RecyclerView().setAdapter(new UtilRecyclerAdapter(mvpView.getActivityContext(),CalendarRecord.class,allModels));
+        ((UtilRecyclerAdapter)mvpView.getCalendar_RecyclerView().getAdapter()).setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()){
+                    case R.id.Calendar_RecyclerView_CalendarRecord_right:
+                        new SqlOperation().DeleteSql(TimeLine.class,((CalendarRecord)allModels.get(position).getData()).getId());
+                        chaochu(((CalendarRecord)allModels.get(position).getData()).getTime());
+                        allModels.remove(position);
+                        adapter.notifyDataSetChanged();
+                        Toast.makeText(mvpView.getActivityContext(), "啊！我死了", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
         /**添加空布局**/
         View view=  LayoutInflater.from(mvpView.getActivityContext()).inflate(R.layout.z_recycler_nodata_item, null);
         ((UtilRecyclerAdapter)mvpView.getCalendar_RecyclerView().getAdapter()).setEmptyView(view);
@@ -92,8 +109,8 @@ public class CalendarPresenter extends BasePresenter<CalendarView> {
         List<TimeLine> timeLines=new SqlOperation().SelectWhere(TimeLine.class,"Time=? and NoteBook=?",time,noteBook.getId()+"");
         for(int i=0;i<timeLines.size();i++){
             TimeLine timeLine=timeLines.get(i);
-            Log.d("zengwei123",timeLine.toString());
-            CalendarRecord calendarRecord=new CalendarRecord(timeLine.getDirection()
+            Log.d("zengwei123","数值："+timeLine.toString());
+            CalendarRecord calendarRecord=new CalendarRecord(timeLine.getId(),timeLine.getDirection()
                     ,timeLine.getIcon_Class()
                     ,timeLine.getMessage()
                     ,timeLine.getImageUrl()
@@ -119,6 +136,7 @@ public class CalendarPresenter extends BasePresenter<CalendarView> {
         }
         InnerPainter innerPainter = (InnerPainter) mvpView.getCalendar_Miui9Calendar().getCalendarPainter();
         innerPainter.setPointList(pointList);
+        mvpView.getCalendar_Miui9Calendar().notifyAllView();
     }
 
     private void getDaybalance(int m){

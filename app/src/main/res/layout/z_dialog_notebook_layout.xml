@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dp"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text="新建账本"
+        android:id="@+id/Z_Dialog_NoteBook_Title"
+        android:textColor="@color/C2b2b2b"
+        android:textSize="@dimen/Text_Big_sp" />
+
+    <TextView
+        android:padding="5dp"
+        android:textColor="@color/color_69"
+        android:background="@color/CF2F2F2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="账本名称" />
+    <EditText
+        android:paddingLeft="10dp"
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:id="@+id/Z_Dialog_NoteBook_EditText"
+        android:layout_height="40dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <View
+            android:background="@color/CF2F2F2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"></View>
+        <TextView
+            android:text="确定"
+            android:gravity="center"
+            android:id="@+id/Z_Dialog_NoteBook_Y"
+            android:layout_toLeftOf="@+id/Z_Dialog_NoteBook_View"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <View
+            android:background="@color/CF2F2F2"
+            android:id="@+id/Z_Dialog_NoteBook_View"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"></View>
+        <TextView
+            android:text="取消"
+            android:gravity="center"
+            android:id="@+id/Z_Dialog_NoteBook_N"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_toRightOf="@+id/Z_Dialog_NoteBook_View"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+</LinearLayout>

@@ -70,4 +70,16 @@ public class SqlOperation  {
         }
         return list;
     }
+
+    /**
+     * sql 删除
+     * @return
+     */
+    public  boolean DeleteSql(Class c,int id){
+        if(LitePal.delete(c,id)>0){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

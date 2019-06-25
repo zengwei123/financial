@@ -9,6 +9,7 @@ import org.litepal.parser.LitePalParser;
  * 首页是时光轴的数据对象
  */
 public class TimeLine extends LitePalSupport {
+    private int id;  //id
     private Boolean Direction=true;   //方向  True=左（收入）   false=右（支出）
     private int Icon_Class=0;   //时间轴图标和类型下标
     private String Message=null; //详细内容
@@ -30,6 +31,14 @@ public class TimeLine extends LitePalSupport {
         Time = time;
         Price = price;
         NoteBook = noteBook;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getImageUrl() {
@@ -91,6 +100,7 @@ public class TimeLine extends LitePalSupport {
     @Override
     public String toString() {
         return "TimeLine{" +
+                "id:"+id+
                 "Direction=" + Direction +
                 ", Icon_Class=" + Icon_Class +
                 ", Message='" + Message + '\'' +

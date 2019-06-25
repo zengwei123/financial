@@ -13,8 +13,7 @@ public class NoteBook extends LitePalSupport implements Serializable {
     private String Date;   //创建日期
     private double Budget;
 
-    public NoteBook(int id, String noteBookName, String date, double budget) {
-        this.id = id;
+    public NoteBook(String noteBookName, String date, double budget) {
         NoteBookName = noteBookName;
         Date = date;
         Budget = budget;
