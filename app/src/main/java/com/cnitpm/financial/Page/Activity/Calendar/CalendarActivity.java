@@ -103,7 +103,7 @@ public class CalendarActivity extends MvpActivity<CalendarPresenter> implements 
                 /**这里是当从日历跳转到 添加页面后添加完之后 返回  需要刷新数据 **/
                 mvpPresenter.DayRecord(mvpPresenter.BTime);
                 getCalendar_RecyclerView().getAdapter().notifyDataSetChanged();
-                mvpPresenter.chaochu(Utils.getFormat("YYYY-MM",new Date().getTime()));
+                mvpPresenter.chaochu(Utils.getFormat("yyyy-MM",new Date().getTime()));
                 break;
         }
     }

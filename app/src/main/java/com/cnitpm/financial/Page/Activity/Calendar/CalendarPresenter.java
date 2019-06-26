@@ -37,7 +37,7 @@ public class CalendarPresenter extends BasePresenter<CalendarView> {
     public void init() {
         noteBook= (NoteBook) mvpView.getBundle().getSerializable("key");
         getDaybalance(Integer.parseInt(Utils.getFormat("M",new Date().getTime())));
-        chaochu(Utils.getFormat("YYYY-MM",new Date().getTime()));
+        chaochu(Utils.getFormat("yyyy-MM",new Date().getTime()));
         mvpView.getInclude_Back().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,13 +56,13 @@ public class CalendarPresenter extends BasePresenter<CalendarView> {
 
         mvpView.getInclude_Title().setText("往日账单("+noteBook.getNoteBookName()+")");
         //当前的月份
-        mvpView.getCalendar_TextView_YearMonth().setText(Utils.getFormat("YYYY年MM月",new Date().getTime()));
+        mvpView.getCalendar_TextView_YearMonth().setText(Utils.getFormat("yyyy年MM月",new Date().getTime()));
         //隐藏的按钮
         mvpView.getInclude_image().setVisibility(View.VISIBLE);
 
 
         /**显示超额支出日期**/
-        DayRecord(Utils.getFormat("YYYY-MM-dd",new Date().getTime()));
+        DayRecord(Utils.getFormat("yyyy-MM-dd",new Date().getTime()));
         mvpView.getCalendar_Miui9Calendar().setOnCalendarChangedListener(new OnCalendarChangedListener() {
             @Override
             public void onCalendarDateChanged(NDate date, boolean isClick) {

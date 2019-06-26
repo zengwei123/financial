@@ -15,6 +15,6 @@ public class BaseApplication extends Application {
         super.onCreate();
         // 初始化
         LitePal.initialize(this);
-        new NoteBook("默认账本", Utils.getFormat("YYYY-MM-dd",new Date().getTime()),1000).save();
+        new NoteBook("默认账本", Utils.getFormat("yyyy-MM-dd",new Date().getTime()),1000).save();
     }
 }

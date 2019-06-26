@@ -170,7 +170,7 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
                 waveShiftAnim.start();
                 break;
             case R.id.Main_TextView_Search:
-                if(new NoteBook("默认账本3", Utils.getFormat("YYYY-MM-dd",new Date().getTime()),1000).save()){
+                if(new NoteBook("默认账本3", Utils.getFormat("yyyy-MM-dd",new Date().getTime()),1000).save()){
                     Toast.makeText(mvpView.getActivityContext(), "添加成功", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(mvpView.getActivityContext(), "添加失败", Toast.LENGTH_SHORT).show();
