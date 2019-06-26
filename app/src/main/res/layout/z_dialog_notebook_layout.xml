@@ -4,15 +4,23 @@
     android:layout_height="wrap_content"
     android:background="#ffffff"
     android:orientation="vertical">
-
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:gravity="center"
-        android:text="新建账本"
-        android:id="@+id/Z_Dialog_NoteBook_Title"
-        android:textColor="@color/C2b2b2b"
-        android:textSize="@dimen/Text_Big_sp" />
+        android:layout_height="45dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="新建账本"
+            android:id="@+id/Z_Dialog_NoteBook_Title"
+            android:textColor="@color/C2b2b2b"
+            android:textSize="@dimen/Text_Big_sp" />
+        <TextView
+            android:layout_alignParentRight="true"
+            android:layout_width="45dp"
+            android:layout_height="45dp" />
+    </RelativeLayout>
+
 
     <TextView
         android:padding="5dp"
@@ -24,8 +32,25 @@
     <EditText
         android:paddingLeft="10dp"
         android:background="#ffffff"
+        android:lines="1"
         android:layout_width="match_parent"
         android:id="@+id/Z_Dialog_NoteBook_EditText"
+        android:layout_height="40dp" />
+    <TextView
+        android:padding="5dp"
+        android:textColor="@color/color_69"
+        android:background="@color/CF2F2F2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:text="每月预算" />
+    <EditText
+        android:paddingLeft="10dp"
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:lines="1"
+        android:inputType="numberDecimal"
+        android:id="@+id/Z_Dialog_NoteBook_EditText1"
         android:layout_height="40dp" />
     <RelativeLayout
         android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package com.cnitpm.financial.Util;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.graphics.Movie;
 import android.util.Log;
@@ -77,6 +78,18 @@ public class SqlOperation  {
      */
     public  boolean DeleteSql(Class c,int id){
         if(LitePal.delete(c,id)>0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    /**
+     * sql 修改
+     * @return
+     */
+    public  boolean UpdateSql(Class c, ContentValues values, int id){
+        if(LitePal.update(c,values,id)>0){
             return true;
         }else {
             return false;

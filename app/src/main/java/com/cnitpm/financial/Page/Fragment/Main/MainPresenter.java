@@ -2,8 +2,10 @@ package com.cnitpm.financial.Page.Fragment.Main;
 
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -99,7 +101,7 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
     private void setNoteBookView(){
         final List<AllModel> allModels=new ArrayList<>();
         noteBooks= new SqlOperation().SelectAll(NoteBook.class);  //获取全部账本
-        /**预算**/
+        /**获得预算**/
         budget=noteBooks.get(0).getBudget();
         /**这里账本id  和账本列表 id是不同的，因为可能会有删除账本 **/
         for(int i=0;i<noteBooks.size();i++){
@@ -116,9 +118,8 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if(position==allModels.size()-1){
-
-                    addNoteBook("新建账本",true);
-                    Toast.makeText(mvpView.getActivityContext(), "你按你妈呢！", Toast.LENGTH_SHORT).show();
+                    /**添加账本**/
+                    addNoteBook("新建账本",true,allModels,0);
                 }else {
                     ((UtilRecyclerAdapter)mvpView.getMain_RecyclerView_NoteBooks().getAdapter()).setObject(position);
                     mvpView.getMain_RecyclerView_NoteBooks().getAdapter().notifyDataSetChanged();
@@ -129,16 +130,33 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
                 }
             }
         });
+        ((UtilRecyclerAdapter)mvpView.getMain_RecyclerView_NoteBooks().getAdapter()).setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                if(position!=allModels.size()-1){
+                    addNoteBook("修改账本",false,allModels,position);
+                }
+                return false;
+            }
+        });
     }
 
+
+
+    /**选择账本 名字好想起错了**/
     private void selectNoteBook(){
         if(mvpView.getMain_LinearLayout_layouts().getTranslationY()!=0){
-            ObjectAnimator waveShiftAnim= ObjectAnimator.ofFloat(mvpView.getMain_LinearLayout_layouts()
-                    , "translationY"
-                    , Utils.dip2px(mvpView.getActivityContext(),120)
-                    , 0);
-            waveShiftAnim.setDuration(500);
-            waveShiftAnim.start();
+            try {
+                ObjectAnimator waveShiftAnim= ObjectAnimator.ofFloat(mvpView.getMain_LinearLayout_layouts()
+                        , "translationY"
+                        , Utils.dip2px(mvpView.getActivityContext(),120)
+                        , 0);
+                waveShiftAnim.setDuration(500);
+                waveShiftAnim.start();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
         }
 
         Refresh();
@@ -170,11 +188,12 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
                 waveShiftAnim.start();
                 break;
             case R.id.Main_TextView_Search:
-                if(new NoteBook("默认账本3", Utils.getFormat("yyyy-MM-dd",new Date().getTime()),1000).save()){
-                    Toast.makeText(mvpView.getActivityContext(), "添加成功", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(mvpView.getActivityContext(), "添加失败", Toast.LENGTH_SHORT).show();
-                }
+                Snackbar.make(mvpView.getThisActivity().findViewById(android.R.id.content),"是否确认删除此账本？", Snackbar.LENGTH_LONG).setAction("删除", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(mvpView.getActivityContext(),"你点击了action",Toast.LENGTH_SHORT).show();
+                    }
+                }).show();
                 break;
         }
     }
@@ -182,9 +201,17 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
 
     /**更新 获取信息方法**/
     public void Refresh(){
-
         double Money_L=0,Money_R=0;   //本月的支出与收入
+        /**获得预算**/
+        budget=noteBooks.get(noteBookIndex).getBudget();
         double balance=noteBooks.get(noteBookIndex).getBudget();
+        if(balance==0){
+            mvpView.getMain_Recycler_WavesView().setVisibility(View.INVISIBLE);
+            mvpView.getMain_TextView_Budget().setVisibility(View.INVISIBLE);
+        }else {
+            mvpView.getMain_TextView_Budget().setVisibility(View.VISIBLE);
+            mvpView.getMain_Recycler_WavesView().setVisibility(View.VISIBLE);
+        }
         //时间轴要用
         List<AllModel> allModels=new ArrayList<>();
         //今天添加的
@@ -263,29 +290,81 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
         mAnimatorSet.start();
     }
     /**添加账本的方法**/
-    private void addNoteBook(String titleStr,boolean b){
+    private void addNoteBook(final String titleStr, final boolean isUpdate, final List<AllModel> allModels, final int id){
+        /**创建dialog**/
         AlertDialog.Builder builder = new AlertDialog.Builder(mvpView.getActivityContext());
+        final AlertDialog dialog = builder.create();
+        /**dialogd的布局**/
         View dialogView = View.inflate(mvpView.getActivityContext(), R.layout.z_dialog_notebook_layout, null);
         TextView title=dialogView.findViewById(R.id.Z_Dialog_NoteBook_Title);  //标题
+        final EditText editText=dialogView.findViewById(R.id.Z_Dialog_NoteBook_EditText);  //内容
+        final EditText editText1=dialogView.findViewById(R.id.Z_Dialog_NoteBook_EditText1);  //预算
+        /**一些设置**/
+        if(isUpdate){
+            editText1.setText("1000");
+            editText.requestFocus();
+        }else {
+            editText.setText(((NoteBook)allModels.get(id).getData()).getNoteBookName()+"");
+            editText1.setText(((NoteBook)allModels.get(id).getData()).getBudget()+"");
+            editText.requestFocus();
+        }
         title.setText(titleStr);
-        EditText editText=dialogView.findViewById(R.id.Z_Dialog_NoteBook_EditText);  //内容
-        editText.requestFocus();
 
+        /**确认按钮**/
         TextView Y=dialogView.findViewById(R.id.Z_Dialog_NoteBook_Y);  //确认
         Y.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String str=editText.getText().toString().trim();   //账本名
+                String str1=editText1.getText().toString().trim();  //账本的预算
+                if(str1.equals("")){   //  如果没有输入内容
+                    str1="0";   //值为0
+                }
+                //账本名不允许为空
+                if(!str.equals("")){
+                    boolean b;
+                    //添加或者修改
+                    if(isUpdate){
+                        NoteBook noteBook=new NoteBook(str, Utils.getFormat("yyyy-MM-dd",new Date().getTime()),Double.parseDouble(str1));
+                        b=noteBook.save();
+                    }else {
+                        //用来获取数据库中的id
+                        NoteBook noteBook=((NoteBook)allModels.get(id).getData());
+                        ContentValues contentValues=new ContentValues();
+                        contentValues.put("NoteBookName",str);
+                        contentValues.put("Budget",Double.parseDouble(str1));
+                        /**修改内容**/
+                        b=new SqlOperation().UpdateSql(NoteBook.class,contentValues,noteBook.getId());
+                    }
+                    if(b){
+                        /**更新账本信息**/
+                        //刷新账本列表
+                        setNoteBookView();
+                        mvpView.getMain_RecyclerView_NoteBooks().getAdapter().notifyDataSetChanged();
+                        mvpView.setNoteBookId(noteBooks.get(id).getId());
+                        mvpView.getMain_TextView_NoteBook().setText(noteBooks.get(id).getNoteBookName());
+                        noteBookIndex=id;
+                        dialog.cancel();
+                        selectNoteBook();
+                        Toast.makeText(mvpView.getActivityContext(),"操作成功",Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(mvpView.getActivityContext(),"失败，可能是账本名重复",Toast.LENGTH_SHORT).show();
+                    }
 
+                }else {
+                    Toast.makeText(mvpView.getActivityContext(),"账本名不能为空",Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
         TextView N=dialogView.findViewById(R.id.Z_Dialog_NoteBook_N);  //取消
         N.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                dialog.cancel();
             }
         });
-         AlertDialog dialog = builder.create();
+
          //添加自定义布局
         dialog.setView(dialogView);
         dialog.show();
