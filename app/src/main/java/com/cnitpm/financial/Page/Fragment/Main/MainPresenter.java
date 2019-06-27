@@ -191,16 +191,6 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
                 waveShiftAnim.start();
                 break;
             case R.id.Main_TextView_Search:
-//                Snackbar snackbar=Snackbar.make(mvpView.getThisActivity().findViewById(android.R.id.content),"是否确认删除此账本？", Snackbar.LENGTH_LONG).setAction("删除", new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Toast.makeText(mvpView.getActivityContext(),"你点击了action",Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//                View mView = snackbar.getView();
-//                mView.setBackgroundColor(Color.parseColor("#DB9019"));
-//                snackbar.setActionTextColor(Color.BLACK);
-//                snackbar.show();
                 break;
         }
     }
@@ -326,7 +316,6 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
                             .setAction("删除", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(mvpView.getActivityContext(),"你点击了action",Toast.LENGTH_SHORT).show();
                         }
                     }).addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
                                 @Override
@@ -335,9 +324,21 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
                                     if(event==2||event==0){
                                         dialog.show();
                                     }else {
+
                                         NoteBook noteBook=((NoteBook)allModels.get(id).getData());
-                                        new SqlOperation().DeleteSql(NoteBook.class,noteBook.getId());
-                                        setNoteBookView();
+                                        if(noteBook.getId()!=1){
+                                            if(new SqlOperation().DeleteSql(NoteBook.class,noteBook.getId())){
+                                                /**删除后切换到默认账本**/
+                                                noteBookIndex=0;
+                                                Toast.makeText(mvpView.getActivityContext(),"删除成功",Toast.LENGTH_SHORT).show();
+                                                setNoteBookView();
+                                                selectNoteBook();
+                                            }
+                                        }else {
+                                            Toast.makeText(mvpView.getActivityContext(),"默认账本可以更名但无法删除！",Toast.LENGTH_SHORT).show();
+                                            dialog.show();
+                                        }
+
                                     }
                                 }
                             });
@@ -379,12 +380,12 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
                     if(b){
                         /**更新账本信息**/
                         //刷新账本列表
-                        setNoteBookView();
                         mvpView.getMain_RecyclerView_NoteBooks().getAdapter().notifyDataSetChanged();
                         mvpView.setNoteBookId(noteBooks.get(id).getId());
                         mvpView.getMain_TextView_NoteBook().setText(noteBooks.get(id).getNoteBookName());
                         noteBookIndex=id;
                         dialog.cancel();
+                        setNoteBookView();
                         selectNoteBook();
                         Toast.makeText(mvpView.getActivityContext(),"操作成功",Toast.LENGTH_SHORT).show();
                     }else {

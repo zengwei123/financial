@@ -17,6 +17,7 @@
         android:id="@+id/Main_LinearLayout_layouts"
         android:background="#ffffff"
         android:orientation="vertical"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <!--title  日期  搜索按钮  日历按钮  账本按钮-->
