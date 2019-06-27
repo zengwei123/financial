@@ -137,6 +137,7 @@ public class UtilRecyclerAdapter extends BaseMultiItemQuickAdapter<AllModel, Bas
                 }
                 //删除按钮 删除删除删除
                 helper.addOnClickListener(R.id.Calendar_RecyclerView_CalendarRecord_right);
+                helper.addOnClickListener(R.id.Calendar_RecyclerView_CalendarRecord_Content);
             }catch (Exception e){
                 /**出错说明是分割线  不进行任何操作**/
             }

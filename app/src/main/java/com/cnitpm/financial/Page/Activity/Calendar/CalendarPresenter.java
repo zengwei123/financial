@@ -1,13 +1,19 @@
 package com.cnitpm.financial.Page.Activity.Calendar;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cnitpm.financial.Base.BaseActivity;
 import com.cnitpm.financial.Base.BasePresenter;
@@ -84,6 +90,7 @@ public class CalendarPresenter extends BasePresenter<CalendarView> {
         /**每日查询**/
         mvpView.getCalendar_RecyclerView().setLayoutManager(new LinearLayoutManager(mvpView.getActivityContext()));
         mvpView.getCalendar_RecyclerView().setAdapter(new UtilRecyclerAdapter(mvpView.getActivityContext(),CalendarRecord.class,allModels));
+        /**控件删除事件**/
         ((UtilRecyclerAdapter)mvpView.getCalendar_RecyclerView().getAdapter()).setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
 
             @Override
@@ -92,9 +99,45 @@ public class CalendarPresenter extends BasePresenter<CalendarView> {
                     case R.id.Calendar_RecyclerView_CalendarRecord_right:
                         new SqlOperation().DeleteSql(TimeLine.class,((CalendarRecord)allModels.get(position).getData()).getId());
                         chaochu(((CalendarRecord)allModels.get(position).getData()).getTime());
+                        if(position!=allModels.size()-1){
+                            allModels.remove(position+1);   //这里是删除最分割线
+                        }
                         allModels.remove(position);
                         adapter.notifyDataSetChanged();
-                        Toast.makeText(mvpView.getActivityContext(), "啊！我死了", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.Calendar_RecyclerView_CalendarRecord_Content:
+                        /**创建dialog**/
+                        AlertDialog.Builder builder = new AlertDialog.Builder(mvpView.getActivityContext());
+                        final AlertDialog dialog = builder.create();
+                        /**dialogd的布局 ,每次打开大概增加0.5兆内存，无所谓啦 可以优化 但是我不干！**/
+                        View dialogView = View.inflate(mvpView.getActivityContext(), R.layout.z_dialog_timeline_layout, null);
+                        TextView Z_Dialog_TimeLine_Message=dialogView.findViewById(R.id.Z_Dialog_TimeLine_Message);
+                        TextView Z_Dialog_TimeLine_Determine=dialogView.findViewById(R.id.Z_Dialog_TimeLine_Determine);
+                        ImageView Z_Dialog_TimeLine_ImageView=dialogView.findViewById(R.id.Z_Dialog_TimeLine_ImageView);
+                        String message=((CalendarRecord)allModels.get(position).getData()).getMessage();
+                        String imageurl=((CalendarRecord)allModels.get(position).getData()).getImageUrl();
+                        if(message.equals("")){
+                            Z_Dialog_TimeLine_Message.setText("没有内容哦~");
+                        }else {
+                            Z_Dialog_TimeLine_Message.setText(message);
+                        }
+                        if(imageurl!=null&&!imageurl.equals("null")){
+                            Glide.with(mvpView.getActivityContext()).load(imageurl).into(Z_Dialog_TimeLine_ImageView);
+                        }else {
+                            Glide.with(mvpView.getActivityContext()).load(R.mipmap.no_image).into(Z_Dialog_TimeLine_ImageView);
+                        }
+                        Z_Dialog_TimeLine_Determine.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.cancel();
+                            }
+                        });
+                        dialog.setView(dialogView);
+                        dialog.show();
+                        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+                        params.width = (int) Utils.getWindow(true,mvpView.getThisActivity())-100;
+                        dialog.getWindow().setAttributes(params);
+                        Toast.makeText(mvpView.getActivityContext(), "点击事件", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -109,7 +152,6 @@ public class CalendarPresenter extends BasePresenter<CalendarView> {
         List<TimeLine> timeLines=new SqlOperation().SelectWhere(TimeLine.class,"Time=? and NoteBook=?",time,noteBook.getId()+"");
         for(int i=0;i<timeLines.size();i++){
             TimeLine timeLine=timeLines.get(i);
-            Log.d("zengwei123","数值："+timeLine.toString());
             CalendarRecord calendarRecord=new CalendarRecord(timeLine.getId(),timeLine.getDirection()
                     ,timeLine.getIcon_Class()
                     ,timeLine.getMessage()
