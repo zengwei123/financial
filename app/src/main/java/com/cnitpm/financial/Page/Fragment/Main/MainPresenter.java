@@ -46,6 +46,7 @@ import com.cnitpm.financial.Model.AllModel;
 import com.cnitpm.financial.Model.NoteBook;
 import com.cnitpm.financial.Model.TimeLine;
 import com.cnitpm.financial.Page.Activity.Calendar.CalendarActivity;
+import com.cnitpm.financial.Page.Activity.Search.SearchActivity;
 import com.cnitpm.financial.R;
 import com.cnitpm.financial.Util.SqlOperation;
 import com.cnitpm.financial.Util.UtilRecyclerAdapter;
@@ -191,6 +192,7 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
                 waveShiftAnim.start();
                 break;
             case R.id.Main_TextView_Search:
+                ((BaseActivity)mvpView.getThisActivity()).JumpActivity(mvpView.getActivityContext(), SearchActivity.class);
                 break;
         }
     }
