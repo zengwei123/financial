@@ -1,4 +1,4 @@
-package com.cnitpm.WangKao.Util;
+package com.cnitpm.financial.Util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
