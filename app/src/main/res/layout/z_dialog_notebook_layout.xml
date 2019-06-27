@@ -15,8 +15,11 @@
             android:id="@+id/Z_Dialog_NoteBook_Title"
             android:textColor="@color/C2b2b2b"
             android:textSize="@dimen/Text_Big_sp" />
-        <TextView
+        <ImageView
+            android:id="@+id/Z_Dialog_NoteBook_Delete"
             android:layout_alignParentRight="true"
+            android:src="@mipmap/delete"
+            android:padding="10dp"
             android:layout_width="45dp"
             android:layout_height="45dp" />
     </RelativeLayout>

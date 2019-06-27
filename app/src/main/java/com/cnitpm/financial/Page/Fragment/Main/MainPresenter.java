@@ -4,7 +4,9 @@ package com.cnitpm.financial.Page.Fragment.Main;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +33,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -188,12 +191,16 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
                 waveShiftAnim.start();
                 break;
             case R.id.Main_TextView_Search:
-                Snackbar.make(mvpView.getThisActivity().findViewById(android.R.id.content),"是否确认删除此账本？", Snackbar.LENGTH_LONG).setAction("删除", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(mvpView.getActivityContext(),"你点击了action",Toast.LENGTH_SHORT).show();
-                    }
-                }).show();
+//                Snackbar snackbar=Snackbar.make(mvpView.getThisActivity().findViewById(android.R.id.content),"是否确认删除此账本？", Snackbar.LENGTH_LONG).setAction("删除", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Toast.makeText(mvpView.getActivityContext(),"你点击了action",Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//                View mView = snackbar.getView();
+//                mView.setBackgroundColor(Color.parseColor("#DB9019"));
+//                snackbar.setActionTextColor(Color.BLACK);
+//                snackbar.show();
                 break;
         }
     }
@@ -299,14 +306,47 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
         TextView title=dialogView.findViewById(R.id.Z_Dialog_NoteBook_Title);  //标题
         final EditText editText=dialogView.findViewById(R.id.Z_Dialog_NoteBook_EditText);  //内容
         final EditText editText1=dialogView.findViewById(R.id.Z_Dialog_NoteBook_EditText1);  //预算
+        ImageView imageView=dialogView.findViewById(R.id.Z_Dialog_NoteBook_Delete);
         /**一些设置**/
         if(isUpdate){
             editText1.setText("1000");
             editText.requestFocus();
+            imageView.setVisibility(View.GONE);
         }else {
             editText.setText(((NoteBook)allModels.get(id).getData()).getNoteBookName()+"");
             editText1.setText(((NoteBook)allModels.get(id).getData()).getBudget()+"");
             editText.requestFocus();
+            /**删除按钮**/
+            imageView.setVisibility(View.VISIBLE);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.cancel();
+                    Snackbar snackbar=Snackbar.make(mvpView.getThisActivity().findViewById(R.id.Sum_ViewPager_Page),"是否确认删除此账本？", Snackbar.LENGTH_LONG)
+                            .setAction("删除", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(mvpView.getActivityContext(),"你点击了action",Toast.LENGTH_SHORT).show();
+                        }
+                    }).addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                                @Override
+                                public void onDismissed(Snackbar transientBottomBar, int event) {
+                                    super.onDismissed(transientBottomBar, event);
+                                    if(event==2||event==0){
+                                        dialog.show();
+                                    }else {
+                                        NoteBook noteBook=((NoteBook)allModels.get(id).getData());
+                                        new SqlOperation().DeleteSql(NoteBook.class,noteBook.getId());
+                                        setNoteBookView();
+                                    }
+                                }
+                            });
+                    View mView = snackbar.getView();
+                    mView.setBackgroundColor(Color.parseColor("#DB9019"));
+                    snackbar.setActionTextColor(Color.BLACK);
+                    snackbar.show();
+                }
+            });
         }
         title.setText(titleStr);
 
