@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#ffffff"
+    android:translationZ="4dp"
+    android:layout_margin="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/Search_RecyclerView_Content"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <ImageView
+            android:id="@+id/Search_RecyclerView_Icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:padding="5dp"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:id="@+id/Search_RecyclerView_Title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/Search_RecyclerView_Price"
+            android:layout_toRightOf="@+id/Search_RecyclerView_Icon"
+            android:gravity="center|left"
+            android:textColor="@color/C2b2b2b"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/Search_RecyclerView_Price"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:padding="5dp"
+            android:textColor="@color/C2b2b2b" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/Search_RecyclerView_ImageUrl"
+        android:layout_below="@+id/Search_RecyclerView_Content"
+        android:layout_width="65dp"
+        android:layout_height="85dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_margin="5dp"
+        android:src="@mipmap/menu_book_g" />
+    <TextView
+        android:layout_below="@+id/Search_RecyclerView_Content"
+        android:layout_toLeftOf="@+id/Search_RecyclerView_ImageUrl"
+        android:id="@+id/Search_RecyclerView_Message"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_below="@+id/Search_RecyclerView_Message"
+        android:layout_toLeftOf="@+id/Search_RecyclerView_ImageUrl"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:id="@+id/Search_RecyclerView_NoteBook"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|left"
+            android:textColor="@color/C2b2b2b"
+            android:paddingLeft="5dp"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/Search_RecyclerView_Time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:padding="5dp"
+            android:textColor="@color/C2b2b2b" />
+    </RelativeLayout>
+</RelativeLayout>

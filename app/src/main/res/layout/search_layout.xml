@@ -1,7 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#ffffff"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
     <include layout="@layout/z_include_layout"></include>
+    <LinearLayout
+        android:background="@color/C5ED5D1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.cnitpm.financial.Custom.WanEditText
+            android:id="@+id/Search_EditText_wan"
+            android:layout_margin="5dp"
+            android:hint="日期/备注内容"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:drawableRight="@mipmap/close"
+            android:textColorHint="@color/CF2F2F2"
+            android:background="@drawable/search_edit"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:lines="1"
+            android:textSize="@dimen/Text_InThe_sp"
+            android:layout_width="match_parent"
+            android:textColor="@color/CF2F2F2"
+            android:layout_height="40dp" />
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/Search_Recycler"
+        android:overScrollMode="never"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

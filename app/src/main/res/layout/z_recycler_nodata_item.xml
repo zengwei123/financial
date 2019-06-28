@@ -13,10 +13,10 @@
         android:layout_centerHorizontal="true"
         android:src="@mipmap/nodata" />
     <TextView
-        android:textSize="16dp"
+        android:textSize="@dimen/Text_Small_sp"
         android:text="无数据"
         android:gravity="center"
-        android:textColor="#1A2D27"
+        android:textColor="#666666"
         android:layout_margin="8dp"
         android:layout_below="@+id/Z_Recycler_NoData_Item_Image"
         android:layout_width="match_parent"
