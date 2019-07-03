@@ -152,6 +152,7 @@ public class CalendarPresenter extends BasePresenter<CalendarView> {
         List<TimeLine> timeLines=new SqlOperation().SelectWhere(TimeLine.class,"Time=? and NoteBook=?",time,noteBook.getId()+"");
         for(int i=0;i<timeLines.size();i++){
             TimeLine timeLine=timeLines.get(i);
+            Log.d("zengwei132",timeLine.toString());
             CalendarRecord calendarRecord=new CalendarRecord(timeLine.getId(),timeLine.getDirection()
                     ,timeLine.getIcon_Class()
                     ,timeLine.getMessage()
@@ -168,7 +169,7 @@ public class CalendarPresenter extends BasePresenter<CalendarView> {
     }
 
     public void chaochu(String time){
-        List<String> timeLines=new SqlOperation().SelectSql("select sum(Price) as A,time as B from timeline where time like ? and notebook=? or  direction=?  group by time;",time+"%",noteBook.getId()+"",false+"");
+        List<String> timeLines=new SqlOperation().SelectSql("select sum(Price) as A,time as B from timeline where time like ? and notebook=? and direction=1  group by time;",time+"%",noteBook.getId()+"");
         List<String> pointList=new ArrayList<>();
         for(String s:timeLines){
             String[] strs=s.split("#");

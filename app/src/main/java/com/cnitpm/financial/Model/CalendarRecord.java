@@ -6,7 +6,7 @@ package com.cnitpm.financial.Model;
  */
 public class CalendarRecord {
     private int id;
-    private Boolean Direction=true;   //方向  True=左（收入）   false=右（支出）
+    private int Direction=0;   //方向  True=左（收入）   false=右（支出）
     private int Icon_Class=0;   //时间轴图标和类型下标
     private String Message=null; //详细内容
     private String ImageUrl;
@@ -14,7 +14,7 @@ public class CalendarRecord {
     private double Price=0;   //价格
     private int NoteBook=0;   //账本id
 
-    public CalendarRecord(int id,Boolean direction, int icon_Class, String message, String imageUrl, String time, double price, int noteBook) {
+    public CalendarRecord(int id,int direction, int icon_Class, String message, String imageUrl, String time, double price, int noteBook) {
         this.id=id;
         Direction = direction;
         Icon_Class = icon_Class;
@@ -33,11 +33,11 @@ public class CalendarRecord {
         this.id = id;
     }
 
-    public Boolean getDirection() {
+    public int getDirection() {
         return Direction;
     }
 
-    public void setDirection(Boolean direction) {
+    public void setDirection(int direction) {
         Direction = direction;
     }
 

@@ -8,12 +8,13 @@ import android.support.v4.view.ViewPager;
 
 import com.cnitpm.financial.Base.MvpActivity;
 import com.cnitpm.financial.Base.ViewBind;
+import com.cnitpm.financial.Custom.NoScrollViewPager;
 import com.cnitpm.financial.Page.Fragment.Main.MainFragment;
 import com.cnitpm.financial.R;
 
 public class SumActivity extends MvpActivity<SumPresenter> implements SumView{
     @ViewBind(R.id.Sum_ViewPager_Page)
-    private ViewPager Sum_ViewPager_Page;
+    private NoScrollViewPager Sum_ViewPager_Page;
     @ViewBind(R.id.Sum_TabLayout_Menu)
     private TabLayout Sum_TabLayout_Menu;
 
@@ -42,7 +43,7 @@ public class SumActivity extends MvpActivity<SumPresenter> implements SumView{
     }
 
     @Override
-    public ViewPager getSum_ViewPager_Page() {
+    public NoScrollViewPager getSum_ViewPager_Page() {
         return Sum_ViewPager_Page;
     }
 

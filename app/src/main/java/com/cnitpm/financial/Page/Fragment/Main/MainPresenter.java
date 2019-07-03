@@ -224,7 +224,7 @@ class MainPresenter extends BasePresenter<MainView> implements View.OnClickListe
         List<TimeLine> timeLines1=new SqlOperation().SelectWhere(TimeLine.class,"Time like ? and NoteBook=?",Utils.getFormat("yyyy-MM",new Date().getTime())+"%",noteBooks.get(noteBookIndex).getId()+"");
         for (int i=0;i<timeLines1.size();i++){
             TimeLine timeLine=timeLines1.get(i);
-            if(timeLine.getDirection()){
+            if(timeLine.getDirection()==0){
                 Money_L+=timeLine.getPrice();
             }else {
                 Money_R+=timeLine.getPrice();

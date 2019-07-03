@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_40dp"
+        android:layout_centerInParent="true"
+        android:background="@color/C5ED5D1"
+        android:gravity="center"
+        android:text="统计"
+        android:textColor="@color/CF2F2F2"
+        android:textSize="@dimen/Text_Big_sp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+        <ImageView
+            android:padding="15dp"
+            android:src="@mipmap/biss"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginLeft="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/Chart_Month_TextView"
+                android:text="当前月份："
+                android:gravity="left|bottom"
+                android:paddingBottom="2dp"
+                android:textColor="@color/C2b2b2b"
+                android:layout_weight="1"
+                android:textSize="@dimen/Text_InThe_sp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/Chart_Average_TextView"
+                android:text="老子一毛钱都不会花！"
+                android:gravity="top|left"
+                android:paddingTop="2dp"
+                android:textSize="@dimen/Text_Small_sp"
+                android:textColor="#666666"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <TextView
+            android:id="@+id/Chart_Situation_1"
+            android:text="-"
+            android:gravity="center"
+            android:textColor="@color/C2b2b2b"
+            android:layout_weight="1"
+            android:textSize="@dimen/Text_InThe_sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/Chart_Situation_2"
+            android:text="-"
+            android:gravity="center"
+            android:textSize="@dimen/Text_InThe_sp"
+            android:textColor="@color/C2b2b2b"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/Chart_Situation_3"
+            android:text="-"
+            android:gravity="center"
+            android:textSize="@dimen/Text_InThe_sp"
+            android:textColor="@color/C2b2b2b"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/Chart_Bar"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </com.github.mikephil.charting.charts.BarChart>
+            <LinearLayout
+                android:layout_weight="1"
+                android:background="@color/CF2F2F2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true">
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

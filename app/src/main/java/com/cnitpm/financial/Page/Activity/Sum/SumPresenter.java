@@ -10,6 +10,7 @@ import com.cnitpm.financial.Base.BaseActivity;
 import com.cnitpm.financial.Base.BasePresenter;
 import com.cnitpm.financial.Base.MvpFragment;
 import com.cnitpm.financial.Page.Activity.AddRecord.AddRecordActivity;
+import com.cnitpm.financial.Page.Fragment.Chart.ChartFragment;
 import com.cnitpm.financial.Page.Fragment.Main.MainFragment;
 import com.cnitpm.financial.R;
 
@@ -22,7 +23,7 @@ class SumPresenter extends BasePresenter<SumView> {
     public void init() {
         /**viewpage显示的布局**/
 
-        fragments.add(new MainFragment());
+        fragments.add(new ChartFragment());
         fragments.add(new MainFragment());
         fragments.add(new MainFragment());
 

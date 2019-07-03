@@ -49,7 +49,7 @@ public class SearchRecyclerAdapter extends BaseMultiItemQuickAdapter<AllModel, B
             TimeLine timeLine= (TimeLine) item.getData();
             Log.d("zengwei123",timeLine.toString());
             try {
-                if(timeLine.getDirection()){
+                if(timeLine.getDirection()==0){
                     /**显示图标**/
                     Glide.with(context).load(Utils.LeftIcon[timeLine.getIcon_Class()]).into((ImageView) helper.getView(R.id.Search_RecyclerView_Icon));
                     /**显示分类**/

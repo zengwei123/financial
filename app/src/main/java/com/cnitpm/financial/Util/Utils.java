@@ -5,11 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import com.cnitpm.financial.R;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.SimpleFormatter;
 
 public class Utils {
@@ -75,6 +79,32 @@ public class Utils {
     public static int px2dip(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
+    }
+
+    /**前30天日期**/
+    public static List<String> getDays(){
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        long times=date.getTime();
+        List<String> strings=new ArrayList<>();
+        StringBuilder str=new StringBuilder();
+        for(int i=0;i<30;i++){
+            calendar.setTimeInMillis(times);
+            times=times-(24*60*60*1000);
+            str.setLength(0);
+            if((calendar.get(Calendar.MONTH)+1)<10){
+                str.append("0"+(calendar.get(Calendar.MONTH)+1)+"-");
+            }else {
+                str.append((calendar.get(Calendar.MONTH)+1)+"-");
+            }
+            if(calendar.get(Calendar.DATE)<10){
+                str.append("0"+calendar.get(Calendar.DATE));
+            }else {
+                str.append(calendar.get(Calendar.DATE));
+            }
+            strings.add(str.toString());
+        }
+        return strings;
     }
 
 }

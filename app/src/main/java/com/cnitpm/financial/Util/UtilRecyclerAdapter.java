@@ -88,7 +88,7 @@ public class UtilRecyclerAdapter extends BaseMultiItemQuickAdapter<AllModel, Bas
             helper.getView(R.id.Main_Recycler_TimeLine_Item_Layout_R).setVisibility(View.GONE);
             helper.getView(R.id.Main_Recycler_TimeLine_Item_Layout_L).setVisibility(View.GONE);
             /**加载中间的图片**/
-            if(timeLine.getDirection()){   /**这边是收入的**/
+            if(timeLine.getDirection()==0){   /**这边是收入的**/
                 Glide.with(context).load(Utils.LeftIcon[timeLine.getIcon_Class()]).into((ImageView) helper.getView(R.id.Main_Recycler_TimeLine_Item_Icon));
                 /**消费类别和金额**/
                 SpannableString spannableString = new SpannableString(Utils.LeftClass[timeLine.getIcon_Class()]+"：￥"+timeLine.getPrice());
@@ -121,7 +121,7 @@ public class UtilRecyclerAdapter extends BaseMultiItemQuickAdapter<AllModel, Bas
         {
             CalendarRecord calendarRecord= (CalendarRecord) item.getData();
             try {
-                if(calendarRecord.getDirection()){
+                if(calendarRecord.getDirection()==0){
                     /**显示图标**/
                     Glide.with(context).load(Utils.LeftIcon[calendarRecord.getIcon_Class()]).into((ImageView) helper.getView(R.id.Calendar_RecyclerView_CalendarRecord_Icon));
                     /**显示分类**/

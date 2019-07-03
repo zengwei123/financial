@@ -49,7 +49,7 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
     private static StringBuilder stringBuilder2=new StringBuilder();   //第一行数值
     private static boolean isDian1=true;   //用来标识第一行有没有小数点
     private int index=0;
-    private boolean LR=false;
+    private int LR=1;
 
     private String setChooseTime=null;
     private int noteBookId=1;  //账本Id
@@ -110,7 +110,7 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
             public void ItemClick(int pos) {
                 //回调接口  设置选择的类型
                 index=pos;
-                LR=false;
+                LR=1;
                 Glide.with(mvpView.getActivityContext()).load(Utils.RightIcon[pos]).into(mvpView.getAddRecord_ImageView_Icon());
                 mvpView.getAddRecord_TextView_Text().setText(Utils.RightClass[pos]);
             }
@@ -123,7 +123,7 @@ public class AddRecordPresenter extends BasePresenter<AddRecordView> implements 
             @Override
             public void ItemClick(int pos) {
                 index=pos;
-                LR=true;
+                LR=0;
                 Glide.with(mvpView.getActivityContext()).load(Utils.LeftIcon[pos]).into(mvpView.getAddRecord_ImageView_Icon());
                 mvpView.getAddRecord_TextView_Text().setText(Utils.LeftClass[pos]);
             }
