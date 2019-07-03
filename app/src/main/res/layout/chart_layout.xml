@@ -95,11 +95,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </com.github.mikephil.charting.charts.BarChart>
-            <LinearLayout
+            <RelativeLayout
                 android:layout_weight="1"
-                android:background="@color/CF2F2F2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></LinearLayout>
+                android:layout_height="match_parent">
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/Chart_Pie"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></com.github.mikephil.charting.charts.PieChart>
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/Chart_Pie1"
+                    android:visibility="gone"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></com.github.mikephil.charting.charts.PieChart>
+                <TextView
+                    android:id="@+id/Chart_LR"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="@color/C2b2b2b"
+                    android:background="@drawable/mian_head_date"
+                    android:textSize="@dimen/Text_Small_sp"
+                    android:layout_marginBottom="@dimen/margin_10dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:text="收入"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

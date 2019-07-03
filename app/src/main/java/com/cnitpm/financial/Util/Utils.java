@@ -42,6 +42,13 @@ public class Utils {
             R.mipmap.spending_31, R.mipmap.spending_32, R.mipmap.spending_33, R.mipmap.spending_34, R.mipmap.spending_35, R.mipmap.spending_36,
             R.mipmap.spending_37, R.mipmap.spending_38, R.mipmap.spending_39, R.mipmap.spending_40};
 
+    public static String[] Colors={
+        "E03636","FF534D","25C6FC","1DB0B8","56A36C","F29F3F","407D94","528870","24D197","C27A59",
+        "F2C0AC","BDD9FC","C9BF8E","4AA9AA","FF4124","EFA97A","0B456B","9BB120","E29B8C","84C2B7",
+        "5F7165","50C5C3","FBF5C4","A5EAFF","A5EAFF","EEBECF","AB4638","FAC457","8EE4E8","5FA49F",
+        "D6767A","88B500","626C83","3761BD","4F867D","07A1B1","A3BAC2","41BCA4","696668","FFCDBF"
+    };
+
     /**时间格式化**/
     public static String getFormat(String str,long time){
         Date date=new Date(time);

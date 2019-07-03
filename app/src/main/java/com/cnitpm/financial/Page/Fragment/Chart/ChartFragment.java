@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.cnitpm.financial.Base.MvpFragment;
 import com.cnitpm.financial.Base.ViewBind;
 import com.cnitpm.financial.R;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.PieChart;
 
 public class ChartFragment  extends MvpFragment<ChartPrestenter> implements ChartView {
     @ViewBind(R.id.Chart_Average_TextView)
@@ -29,6 +31,12 @@ public class ChartFragment  extends MvpFragment<ChartPrestenter> implements Char
 
     @ViewBind(R.id.Chart_Bar)
     private BarChart Chart_Bar;      //图表框架  柱状图
+    @ViewBind(R.id.Chart_Pie)
+    private PieChart Chart_Pie;    //图表框架  饼状图
+    @ViewBind(R.id.Chart_Pie1)
+    private PieChart Chart_Pie1;    //图表框架  饼状图
+    @ViewBind(R.id.Chart_LR)
+    private TextView Chart_LR;     //切换饼图的内容
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -86,5 +94,26 @@ public class ChartFragment  extends MvpFragment<ChartPrestenter> implements Char
     @Override
     public BarChart getChart_Bar() {
         return Chart_Bar;
+    }
+
+    @Override
+    public PieChart getChart_Pie() {
+        return Chart_Pie;
+    }
+
+    @Override
+    public PieChart getChart_Pie1() {
+        return Chart_Pie1;
+    }
+
+    @Override
+    public TextView getChart_LR() {
+        return Chart_LR;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mvpPresenter.msg(mvpPresenter.noteBookId);
     }
 }

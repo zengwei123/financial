@@ -6,6 +6,7 @@ import android.util.Log;
 import com.cnitpm.financial.Model.TimeLine;
 import com.cnitpm.financial.Util.Utils;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.PieEntry;
 
 import org.litepal.LitePal;
 
@@ -46,7 +47,8 @@ public class ChartSql {
         List<BarEntry> barEntries=new ArrayList<>();
         List<String> strings=Utils.getDays();
         for(int i=0;i<30;i++){
-            Cursor cursor= LitePal.findBySQL("select Price as A from timeline where time=? and notebook=? and  direction=1  ",Utils.getFormat("yyyy-",new Date().getTime())+strings.get(i),noteBookId+"");
+            Cursor cursor= LitePal.findBySQL("select Price as A from timeline where time=? and notebook=? and  direction=1  ",
+                    Utils.getFormat("yyyy-",new Date().getTime())+strings.get(i),noteBookId+"");
             if (cursor.moveToNext()){
                 barEntries.add(new BarEntry(i,cursor.getFloat(cursor.getColumnIndex("A"))));
             }else {
@@ -64,7 +66,8 @@ public class ChartSql {
         List<BarEntry> barEntries=new ArrayList<>();
         List<String> strings=Utils.getDays();
         for(int i=0;i<30;i++){
-            Cursor cursor= LitePal.findBySQL("select Price as A from timeline where time=? and notebook=? and  direction=0  ",Utils.getFormat("yyyy-",new Date().getTime())+strings.get(i),noteBookId+"");
+            Cursor cursor= LitePal.findBySQL("select Price as A from timeline where time=? and notebook=? and  direction=0  ",
+                    Utils.getFormat("yyyy-",new Date().getTime())+strings.get(i),noteBookId+"");
             if (cursor.moveToNext()){
                 barEntries.add(new BarEntry(i,cursor.getFloat(cursor.getColumnIndex("A"))));
             }else {
@@ -74,21 +77,32 @@ public class ChartSql {
         return barEntries;
     }
 
-    private static int getDaybalance(int m){
-        switch (m){
-            case 1: return 31;
-            case 2:return 28;
-            case 3:return 31;
-            case 4:return 30;
-            case 5:return 31;
-            case 6:return 30;
-            case 7:return 31;
-            case 8:return 31;
-            case 9:return 30;
-            case 10:return 31;
-            case 11:return 30;
-            case 12: return 31;
+
+    /**
+     * 获取当月全部收入类型
+     * @return
+     */
+    public static List<PieEntry> getAllClassL(int noteBookId){
+        List<PieEntry> barEntries=new ArrayList<>();
+            Cursor cursor= LitePal.findBySQL("select Price as A,Icon_Class as B from timeline where notebook=? and  direction=0  group by Icon_Class",
+                   noteBookId+"");
+            while (cursor.moveToNext()){
+                barEntries.add(new PieEntry(cursor.getFloat(cursor.getColumnIndex("A")),Utils.LeftClass[cursor.getInt(cursor.getColumnIndex("B"))]));
+            }
+        return barEntries;
+    }
+
+    /**
+     * 获取当月全部收入类型
+     * @return
+     */
+    public static List<PieEntry> getAllClassR(int noteBookId){
+        List<PieEntry> barEntries=new ArrayList<>();
+        Cursor cursor= LitePal.findBySQL("select Price as A,Icon_Class as B from timeline where notebook=? and  direction=1  group by Icon_Class",
+                noteBookId+"");
+        while (cursor.moveToNext()){
+            barEntries.add(new PieEntry(cursor.getFloat(cursor.getColumnIndex("A")),Utils.RightClass[cursor.getInt(cursor.getColumnIndex("B"))]));
         }
-        return 30;
+        return barEntries;
     }
 }
