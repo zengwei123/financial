@@ -85,8 +85,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
+            android:id="@+id/Chart_Figure_LinearLayout"
             android:orientation="vertical"
-            android:layout_marginBottom="20dp"
+            android:background="#ffffff"
+            android:layout_marginBottom="30dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <com.github.mikephil.charting.charts.BarChart
@@ -124,14 +126,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </RelativeLayout>
-
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/Chart_Comprehensive_LinearLayout"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:background="#ffffff"
+            android:layout_marginBottom="30dp"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_alignParentBottom="true">
-
+            android:layout_height="match_parent">
+            <TextView
+                android:text="adsasdasd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </LinearLayout>
+        <TextView
+            android:id="@+id/Chart_Comprehensive_TextView"
+            android:text="综合数据>>"
+            android:paddingRight="10dp"
+            android:textSize="@dimen/Text_Small_sp"
+            android:textColor="@color/C5ED5D1"
+            android:layout_width="match_parent"
+            android:gravity="center|right"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true">
+        </TextView>
     </RelativeLayout>
 
 </LinearLayout>

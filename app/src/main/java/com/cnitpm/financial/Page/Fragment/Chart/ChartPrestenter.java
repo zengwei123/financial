@@ -8,6 +8,7 @@ import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.view.View;
+import android.widget.Toast;
 
 import com.cnitpm.financial.Base.BasePresenter;
 import com.cnitpm.financial.Model.NoteBook;
@@ -47,7 +48,17 @@ public class ChartPrestenter extends BasePresenter<ChartView> {
     public void init() {
         mvpView.getChart_Month_TextView().setText(month+"月1日-"+month+"月"+day+"日");
         msg(noteBookId);
-
+        //这里只是显示隐藏了 综合数据的布局  表图的布局没有变
+        mvpView.getChart_Comprehensive_TextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mvpView.getChart_Comprehensive_LinearLayout().getVisibility()==View.GONE){
+                    mvpView.getChart_Comprehensive_LinearLayout().setVisibility(View.VISIBLE);
+                }else {
+                    mvpView.getChart_Comprehensive_LinearLayout().setVisibility(View.GONE);
+                }
+            }
+        });
     }
     public void msg(int ii){
         NoteBook noteBook = (NoteBook) new SqlOperation().SelectId(NoteBook.class,ii);

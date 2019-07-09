@@ -1,5 +1,6 @@
 package com.cnitpm.financial.Page.Fragment.Chart;
 
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cnitpm.financial.Base.BaseView;
@@ -16,4 +17,8 @@ public interface ChartView extends BaseView {
     PieChart getChart_Pie();
     PieChart getChart_Pie1();
     TextView getChart_LR();
+    TextView getChart_Comprehensive_TextView();
+
+    LinearLayout getChart_Figure_LinearLayout();
+    LinearLayout getChart_Comprehensive_LinearLayout();
 }

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cnitpm.financial.Base.MvpFragment;
@@ -37,6 +38,14 @@ public class ChartFragment  extends MvpFragment<ChartPrestenter> implements Char
     private PieChart Chart_Pie1;    //图表框架  饼状图
     @ViewBind(R.id.Chart_LR)
     private TextView Chart_LR;     //切换饼图的内容
+
+    @ViewBind(R.id.Chart_Comprehensive_TextView)
+    private TextView Chart_Comprehensive_TextView;  //用户切换到综合数据
+
+    @ViewBind(R.id.Chart_Comprehensive_LinearLayout)
+    private LinearLayout Chart_Figure_LinearLayout;   //图标布局
+    @ViewBind(R.id.Chart_Comprehensive_LinearLayout)
+    private LinearLayout Chart_Comprehensive_LinearLayout;  //综合数据布局
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -109,6 +118,21 @@ public class ChartFragment  extends MvpFragment<ChartPrestenter> implements Char
     @Override
     public TextView getChart_LR() {
         return Chart_LR;
+    }
+
+    @Override
+    public TextView getChart_Comprehensive_TextView() {
+        return Chart_Comprehensive_TextView;
+    }
+
+    @Override
+    public LinearLayout getChart_Figure_LinearLayout() {
+        return Chart_Figure_LinearLayout;
+    }
+
+    @Override
+    public LinearLayout getChart_Comprehensive_LinearLayout() {
+        return Chart_Comprehensive_LinearLayout;
     }
 
     @Override
