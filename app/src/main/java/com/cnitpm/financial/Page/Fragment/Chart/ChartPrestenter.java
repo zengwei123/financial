@@ -3,6 +3,8 @@ package com.cnitpm.financial.Page.Fragment.Chart;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -10,9 +12,12 @@ import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cnitpm.financial.Base.BasePresenter;
+import com.cnitpm.financial.Model.AllModel;
 import com.cnitpm.financial.Model.NoteBook;
 import com.cnitpm.financial.Util.SqlOperation;
+import com.cnitpm.financial.Util.UtilRecyclerAdapter;
 import com.cnitpm.financial.Util.Utils;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
@@ -39,6 +44,7 @@ import java.util.List;
 
 public class ChartPrestenter extends BasePresenter<ChartView> {
     public int noteBookId=1;    //账本id
+    public int noteBookIndex=0;
     private double Budget=0;    //本月预算
     private double spending=0;   //本月花销
     private double income=0;    //本月收入
@@ -49,7 +55,7 @@ public class ChartPrestenter extends BasePresenter<ChartView> {
         mvpView.getChart_Month_TextView().setText(month+"月1日-"+month+"月"+day+"日");
         msg(noteBookId);
         //这里只是显示隐藏了 综合数据的布局  表图的布局没有变
-        mvpView.getChart_Comprehensive_TextView().setOnClickListener(new View.OnClickListener() {
+        mvpView.getChart_NoteBooks_TextView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mvpView.getChart_Comprehensive_LinearLayout().getVisibility()==View.GONE){
@@ -59,6 +65,8 @@ public class ChartPrestenter extends BasePresenter<ChartView> {
                 }
             }
         });
+
+        setNoteBook();
     }
     public void msg(int ii){
         NoteBook noteBook = (NoteBook) new SqlOperation().SelectId(NoteBook.class,ii);
@@ -171,7 +179,7 @@ public class ChartPrestenter extends BasePresenter<ChartView> {
 
     }
 
-    /**设置柱状图**/
+    /**设置饼图**/
     private void setPie(final int ii, boolean z, PieChart pieChart){
         List<PieEntry> pieEntries;
         PieDataSet dataset;
@@ -247,4 +255,35 @@ public class ChartPrestenter extends BasePresenter<ChartView> {
         return spannableString;
     }
 
+    public void setNoteBook(){
+        final List<NoteBook> noteBooks = new SqlOperation().SelectAll(NoteBook.class);  //获取全部账本
+        final List<AllModel> allModels=new ArrayList<>();
+        /**这里账本id  和账本列表 id是不同的，因为可能会有删除账本 **/
+        for(int i=0;i<noteBooks.size();i++){
+            allModels.add(new AllModel(noteBooks.get(i),1));
+        }
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(mvpView.getActivityContext(), 4);
+        //设置表格，根据position计算在该position处1列占几格数据
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override public int getSpanSize(int position) {
+                return 4;
+            }
+        });
+        mvpView.getChart_NoteBooks_RecyclerView().setLayoutManager(gridLayoutManager);
+        mvpView.getChart_NoteBooks_RecyclerView().setAdapter(new UtilRecyclerAdapter(mvpView.getActivityContext(),NoteBook.class,allModels,noteBookIndex));
+        /**选择账本**/
+        ((UtilRecyclerAdapter)mvpView.getChart_NoteBooks_RecyclerView().getAdapter()).setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ((UtilRecyclerAdapter)mvpView.getChart_NoteBooks_RecyclerView().getAdapter()).setObject(position);
+                mvpView.getChart_NoteBooks_RecyclerView().getAdapter().notifyDataSetChanged();
+                mvpView.getChart_NoteBooks_TextView().setText("《"+noteBooks.get(position).getNoteBookName()+"》");
+                noteBookId=noteBooks.get(position).getId();
+                mvpView.getChart_Pie().clear();
+                mvpView.getChart_Pie1().clear();
+                msg(noteBookId);
+                mvpView.getChart_Comprehensive_LinearLayout().setVisibility(View.GONE);
+            }
+        });
+    }
 }

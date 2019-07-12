@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,13 +40,15 @@ public class ChartFragment  extends MvpFragment<ChartPrestenter> implements Char
     @ViewBind(R.id.Chart_LR)
     private TextView Chart_LR;     //切换饼图的内容
 
-    @ViewBind(R.id.Chart_Comprehensive_TextView)
-    private TextView Chart_Comprehensive_TextView;  //用户切换到综合数据
+    @ViewBind(R.id.Chart_NoteBooks_TextView)
+    private TextView Chart_NoteBooks_TextView;  //用户切换账本
 
     @ViewBind(R.id.Chart_Comprehensive_LinearLayout)
     private LinearLayout Chart_Figure_LinearLayout;   //图标布局
     @ViewBind(R.id.Chart_Comprehensive_LinearLayout)
     private LinearLayout Chart_Comprehensive_LinearLayout;  //综合数据布局
+    @ViewBind(R.id.Chart_NoteBooks_RecyclerView)
+    private RecyclerView Chart_NoteBooks_RecyclerView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -121,8 +124,8 @@ public class ChartFragment  extends MvpFragment<ChartPrestenter> implements Char
     }
 
     @Override
-    public TextView getChart_Comprehensive_TextView() {
-        return Chart_Comprehensive_TextView;
+    public TextView getChart_NoteBooks_TextView() {
+        return Chart_NoteBooks_TextView;
     }
 
     @Override
@@ -136,8 +139,14 @@ public class ChartFragment  extends MvpFragment<ChartPrestenter> implements Char
     }
 
     @Override
+    public RecyclerView getChart_NoteBooks_RecyclerView() {
+        return Chart_NoteBooks_RecyclerView;
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         mvpPresenter.msg(mvpPresenter.noteBookId);
+        mvpPresenter.setNoteBook();
     }
 }

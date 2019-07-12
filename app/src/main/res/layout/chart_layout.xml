@@ -135,14 +135,14 @@
             android:layout_marginBottom="30dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
-                android:text="adsasdasd"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/Chart_NoteBooks_RecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
         </LinearLayout>
         <TextView
-            android:id="@+id/Chart_Comprehensive_TextView"
-            android:text="综合数据>>"
+            android:id="@+id/Chart_NoteBooks_TextView"
+            android:text="《默认账本》"
             android:paddingRight="10dp"
             android:textSize="@dimen/Text_Small_sp"
             android:textColor="@color/C5ED5D1"
