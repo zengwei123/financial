@@ -12,6 +12,7 @@ import com.cnitpm.financial.Base.MvpFragment;
 import com.cnitpm.financial.Page.Activity.AddRecord.AddRecordActivity;
 import com.cnitpm.financial.Page.Fragment.Chart.ChartFragment;
 import com.cnitpm.financial.Page.Fragment.Main.MainFragment;
+import com.cnitpm.financial.Page.Fragment.TaoKe.TaoKeFragment;
 import com.cnitpm.financial.R;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ class SumPresenter extends BasePresenter<SumView> {
 
         fragments.add(new ChartFragment());
         fragments.add(new MainFragment());
-        fragments.add(new MainFragment());
+        fragments.add(new TaoKeFragment());
 
         mvpView.getSum_TabLayout_Menu().addTab(mvpView.getSum_TabLayout_Menu().newTab().setIcon(R.mipmap.menu_chart_g));
         mvpView.getSum_TabLayout_Menu().addTab(mvpView.getSum_TabLayout_Menu().newTab().setIcon(R.mipmap.menu_add_k));

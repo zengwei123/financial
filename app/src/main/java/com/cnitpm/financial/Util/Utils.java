@@ -9,6 +9,8 @@ import android.util.Log;
 
 import com.cnitpm.financial.R;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,6 +19,9 @@ import java.util.List;
 import java.util.logging.SimpleFormatter;
 
 public class Utils {
+    public static String IP="http://47.107.160.246:8089";
+
+
     /**中间的图标
      *
      * R.mipmap.spending_41, R.mipmap.spending_42,
@@ -114,4 +119,18 @@ public class Utils {
         return strings;
     }
 
+    //四舍五入
+    public static double getCommission_rate(double p){
+        BigDecimal b   =   new   BigDecimal(p);
+        double   f1   =   b.setScale(2,   RoundingMode.HALF_UP).doubleValue();
+        return f1;
+    }
+
+    public static String getQuan(String S,boolean b){
+        if(b){
+            return S.split("减")[1];
+        }else {
+            return S.split("减")[1].split("元")[0];
+        }
+    }
 }
