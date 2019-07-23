@@ -98,7 +98,7 @@
                     </LinearLayout>
                 </LinearLayout>
                 <android.support.v7.widget.Toolbar
-                    android:background="#37383B"
+                    android:background="@color/C5ED5D1"
                     app:layout_collapseMode="pin"
                     android:contentInsetStart="0dp"
                     android:contentInsetLeft="0dp"

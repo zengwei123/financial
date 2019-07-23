@@ -12,6 +12,7 @@ import com.cnitpm.financial.Model.Material;
 import com.cnitpm.financial.Model.OutPutJson;
 import com.cnitpm.financial.Net.RetrofitCallOssService;
 import com.cnitpm.financial.Page.Activity.Favorites.FavoritesActivity;
+import com.cnitpm.financial.Page.Activity.HomeSearchEdit.HomeSearchEditActivity;
 import com.cnitpm.financial.R;
 import com.cnitpm.financial.Util.Utils;
 
@@ -31,7 +32,7 @@ public class TaoKePresenter extends BasePresenter<TaoKeView> implements View.OnC
     /**初始化**/
     private void setView(){
         mvpView.getHome_SearchEdit().setTypeface(Utils.getTypeFace(mvpView.getActivityContext()));
-        mvpView.getHome_SearchEdit().setHint("\ue8b6 输入关键字或商品标题");
+        mvpView.getHome_SearchEdit().setHint("\uecb3 输入关键字或商品标题");
         mvpView.getHome_SearchEdit().setInputType(InputType.TYPE_NULL);
         //侧拉
         mvpView.getHome_AppBar().addOnOffsetChangedListener(new AppBarStateChangeListener() {
@@ -53,6 +54,7 @@ public class TaoKePresenter extends BasePresenter<TaoKeView> implements View.OnC
         mvpView.getHome_Nine().setOnClickListener(this);
         mvpView.getHome_Big().setOnClickListener(this);
         mvpView.getHome_Good().setOnClickListener(this);
+        mvpView.getHome_SearchEdit().setOnClickListener(this);
     }
 
     @Override
@@ -84,6 +86,9 @@ public class TaoKePresenter extends BasePresenter<TaoKeView> implements View.OnC
                 break;
             case R.id.Home_Article:
 
+                break;
+            case R.id.Home_SearchEdit:
+                ((BaseActivity)mvpView.getActivityContext()).JumpActivity(mvpView.getActivityContext(), HomeSearchEditActivity.class);
                 break;
         }
     }

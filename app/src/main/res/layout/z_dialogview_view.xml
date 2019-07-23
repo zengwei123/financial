@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialogview_hottext"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/DialogView_View_Title"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="#2b2b2b"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:textSize="20sp"
+        android:text="提示" />
+
+    <TextView
+        android:id="@+id/DialogView_View_Message"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="#2b2b2b"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:textSize="15sp"
+        android:text="asdddddddddddddddddddasdasdasdddddddddddddddddddddddasdasdasdasd" />
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/DialogView_View_Cancel"
+            android:background="@drawable/home_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="#2b2b2b"
+            android:layout_weight="1"
+            android:text="取消" />
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/DialogView_View_Confirm"
+            android:background="@drawable/home_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="#2b2b2b"
+            android:layout_weight="1"
+            android:text="确定" />
+    </LinearLayout>
+</LinearLayout>
