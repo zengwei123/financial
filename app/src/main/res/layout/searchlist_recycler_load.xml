@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#ffffff"
+    android:orientation="horizontal">
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        app:lottie_fileName="json/loading.json"
+        app:lottie_loop="true" />
+    <TextView
+        android:id="@+id/yijindaodi"
+        android:textSize="18sp"
+        android:visibility="gone"
+        android:textColor="#2b2b2b"
+        android:text="已经到底"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+</LinearLayout>

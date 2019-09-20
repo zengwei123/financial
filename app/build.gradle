@@ -16,6 +16,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    android.dexOptions {
+        jumboMode = true
+//       javaMaxHeapSize "2g"
+    }
 }
 
 dependencies {
@@ -39,8 +43,11 @@ dependencies {
     implementation 'com.github.anzaizai:EasySwipeMenuLayout:1.1.2'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+    implementation 'com.youth.banner:banner:1.4.10'
+    //轮播框架最新版本
 
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
+    implementation project(path: ':lottie')
 }

@@ -56,18 +56,20 @@
                 android:layout_marginLeft="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
-            <TextView
-                android:id="@+id/SearchList_Recycler_tk_total_sales"
-                style="@style/SearchList_Recycler_Text"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:text="-" />
+
 
         </RelativeLayout>
         <TextView
+            android:id="@+id/SearchList_Recycler_tk_total_sales"
+            style="@style/SearchList_Recycler_Text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:text="-" />
+        <TextView
             android:id="@+id/SearchList_Recycler_commission_rate"
             style="@style/SearchList_Recycler_Text"
+            android:visibility="gone"
             android:text="预计收益:-"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

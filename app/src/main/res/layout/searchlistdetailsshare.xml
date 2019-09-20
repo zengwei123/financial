@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#ffffff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include android:id="@+id/Title_Layout" layout="@layout/z_include_layout"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/Title_Layout"
+        android:layout_marginBottom="60dp"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="宝贝购买口令："
+                android:textColor="#2b2b2b"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+            <EditText
+                android:id="@+id/SearchListDetailsShare_baby"
+                android:textColor="#2b2b2b"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="30dp"
+                android:lines="10"
+                android:gravity="top"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:background="@drawable/homesearchedit_hottext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/SearchListDetailsShare_vouchersLayout"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="优惠券领取口令："
+                android:textColor="#2b2b2b"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+            <EditText
+                android:id="@+id/SearchListDetailsShare_vouchers"
+                android:textColor="#2b2b2b"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="30dp"
+                android:lines="10"
+                android:gravity="top"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:background="@drawable/homesearchedit_hottext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:id="@+id/SearchListDetailsShare_babyBut"
+            android:text="复制宝贝购买口令"
+            android:background="#E03636"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:id="@+id/SearchListDetailsShare_vouchersBut"
+            android:text="复制优惠券领取口令"
+            android:background="#F01B2D"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+
+</RelativeLayout>
