@@ -13,6 +13,7 @@ import com.cnitpm.financial.R;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -157,5 +158,19 @@ public class Utils {
             s=s.replace("http:","");
         }
         return s;
+    }
+
+    public static int  longOfTwoDate(String first,String second) throws ParseException {
+      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date firstdate = format.parse(first);
+        Date seconddate = format.parse(second);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(firstdate);
+        int cnt = 0;
+        while(calendar.getTime().compareTo(seconddate)!=0){
+            calendar.add(Calendar.DATE, 1);
+            cnt++;
+        }
+        return cnt;
     }
 }

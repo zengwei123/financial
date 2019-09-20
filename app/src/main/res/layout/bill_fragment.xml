@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_40dp"
+        android:layout_centerInParent="true"
+        android:background="@color/C5ED5D1"
+        android:gravity="center"
+        android:text="账单"
+        android:textColor="@color/CF2F2F2"
+        android:textSize="@dimen/Text_Big_sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/Bill_Recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <RelativeLayout
+            android:id="@+id/Bill_Add_Layout"
+            android:visibility="gone"
+            android:background="#802b2b2b"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_centerInParent="true"
+                android:padding="10dp"
+                android:layout_width="240dp"
+                android:background="@drawable/bill_style"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/Bill_Initial_Text"
+                    android:text="开始时间：-"
+                    android:gravity="center|left"
+                    android:textColor="@color/C2b2b2b"
+                    android:textSize="15sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+                <TextView
+                    android:id="@+id/Bill_End_Text"
+                    android:text="结束时间：-"
+                    android:gravity="center|left"
+                    android:textColor="@color/C2b2b2b"
+                    android:textSize="15sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+                <TextView
+                    android:id="@+id/Bill_Generate"
+                    android:text="生成"
+                    android:layout_marginTop="40dp"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:textColor="#ffffff"
+                    android:background="@color/C5ED5D1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:text="默认生成全部账单记录"
+                    android:textSize="10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+        <Button
+            android:id="@+id/Bill_Add_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="14dp"
+            android:text="暂未生成账单,点击生成"
+            android:textSize="18dp" />
+    </RelativeLayout>
+
+</LinearLayout>

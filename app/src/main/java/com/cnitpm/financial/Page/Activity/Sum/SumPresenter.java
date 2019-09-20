@@ -10,6 +10,7 @@ import com.cnitpm.financial.Base.BaseActivity;
 import com.cnitpm.financial.Base.BasePresenter;
 import com.cnitpm.financial.Base.MvpFragment;
 import com.cnitpm.financial.Page.Activity.AddRecord.AddRecordActivity;
+import com.cnitpm.financial.Page.Fragment.Bill.BillFragment;
 import com.cnitpm.financial.Page.Fragment.Chart.ChartFragment;
 import com.cnitpm.financial.Page.Fragment.Main.MainFragment;
 import com.cnitpm.financial.R;
@@ -25,7 +26,7 @@ class SumPresenter extends BasePresenter<SumView> {
 
         fragments.add(new ChartFragment());
         fragments.add(new MainFragment());
-        fragments.add(new MainFragment());
+        fragments.add(new BillFragment());
 
         mvpView.getSum_TabLayout_Menu().addTab(mvpView.getSum_TabLayout_Menu().newTab().setIcon(R.mipmap.menu_chart_g));
         mvpView.getSum_TabLayout_Menu().addTab(mvpView.getSum_TabLayout_Menu().newTab().setIcon(R.mipmap.menu_add_k));
@@ -69,11 +70,14 @@ class SumPresenter extends BasePresenter<SumView> {
         SumFragmentAdapter sumFragmentAdapter=new SumFragmentAdapter(((FragmentActivity)mvpView.getThisActivity()).getSupportFragmentManager(), fragments);
         mvpView.getSum_ViewPager_Page().setAdapter(sumFragmentAdapter);
         mvpView.getSum_ViewPager_Page().setCurrentItem(1);
+        mvpView.getSum_ViewPager_Page().setOffscreenPageLimit(5);
         /**两个控件绑定起来**/
         mvpView.getSum_TabLayout_Menu().setupWithViewPager(mvpView.getSum_ViewPager_Page());
         /**设置图标  绑定后会清除 妈的**/
         mvpView.getSum_TabLayout_Menu().getTabAt(0).setIcon(R.mipmap.menu_chart_g);
         mvpView.getSum_TabLayout_Menu().getTabAt(1).setIcon(R.mipmap.menu_add_k);
         mvpView.getSum_TabLayout_Menu().getTabAt(2).setIcon(R.mipmap.menu_book_g);
+
     }
+
 }
