@@ -39,58 +39,86 @@ public class BillSql {
      * 创建时间**/
     private String CreateTime(){
         Date date=new Date();
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat ("yyyy-MMM-dd HH:mm:ss");
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
         return simpleDateFormat.format(date);
     }
 
-    public void SelectAll(){
+    public BillModel SelectAll(){
         if (NoteBookId!=-1){
-
-        }else {
-            List<TimeLine> calendarRecords=new SqlOperation().SelectAll(TimeLine.class);
-            /**获得日期和天数综合**/
-
-
-
-            List<String> maxtime=new SqlOperation().SelectSql("select time as A,notebook as B from timeline where time= (select MAX(time) from timeline);");
-            List<String> mimtime=new SqlOperation().SelectSql("select time as A,notebook as B from timeline where time= (select MIN(time) from timeline);");
-            if (InitialDay==null){
-                InitialDay=mimtime.get(0).split("#")[0];
-            }else {
-                InitialDay=calendarRecords.get(0).getTime();
-            }
-
-            if (EndDay==null){
-                EndDay=maxtime.get(0).split("#")[0];
-            }else {
-                EndDay=calendarRecords.get(calendarRecords.size()-1).getTime();
-            }
-
-            try {
-                DateSum=Utils.longOfTwoDate(InitialDay,EndDay)+1;
-            } catch (ParseException e) {
-                e.printStackTrace();
-                DateSum=0;
-            }
-            billModel.setSumDay(DateSum);   //天数量
+            s1();
+            List<TimeLine> calendarRecords=new SqlOperation().SelectWhere(TimeLine.class,"notebook=?",NoteBookId+"");
             for (TimeLine calendarRecord:calendarRecords){
                 a(calendarRecord);
             }
-
             billModel.setAverageSpendingMoney(billModel.getSpendingSumMoney()/DateSum);  //平均每天的支出
             billModel.setAverageIncomeMoney(billModel.getIncomeSumMoney()/DateSum);  //平均每天的收入
-
             billModel.setSpendingFrequency(sumsp);   //支出天数
             billModel.setIncomeFrequency(sumIn);   //收入天数
-
             billModel.setNoteBookId(NoteBookId);  //账本id
-
-            selectClass();
-            selectNoteBook();
-            Log.d("zengwei123",billModel.toString());
+            return billModel;
+        }else {
+            s();
+            List<TimeLine> calendarRecords=new SqlOperation().SelectAll(TimeLine.class);
+            for (TimeLine calendarRecord:calendarRecords){
+                a(calendarRecord);
+            }
+            billModel.setAverageSpendingMoney(billModel.getSpendingSumMoney()/DateSum);  //平均每天的支出
+            billModel.setAverageIncomeMoney(billModel.getIncomeSumMoney()/DateSum);  //平均每天的收入
+            billModel.setSpendingFrequency(sumsp);   //支出天数
+            billModel.setIncomeFrequency(sumIn);   //收入天数
+            billModel.setNoteBookId(NoteBookId);  //账本id
+            b();
+            c();
+            return billModel;
         }
     }
-
+    private void s(){
+        /**获得日期和天数综合**/
+        List<String> mimtime=new SqlOperation().SelectSql("select time as A,notebook as B from timeline where time= (select MIN(time) from timeline);");
+        List<String> maxtime=new SqlOperation().SelectSql("select time as A,notebook as B from timeline where time= (select MAX(time) from timeline);");
+        if (InitialDay==null){
+            InitialDay=mimtime.get(0).split("#")[0];
+        }
+        if (EndDay==null){
+            EndDay=maxtime.get(0).split("#")[0];
+        }
+        billModel.setCreateTime(CreateTime());
+        billModel.setInitialDay(InitialDay);
+        billModel.setEndDay(EndDay);
+        billModel.setNoteBookName("全部账本");
+        /**获得天数**/
+        try {
+            DateSum=Utils.longOfTwoDate(InitialDay,EndDay)+1;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            DateSum=0;
+        }
+        billModel.setSumDay(DateSum);   //天数量
+    }
+    private void s1(){
+        /**获得日期和天数综合**/
+        List<String> mimtime=new SqlOperation().SelectSql("select time as A,notebook as B from timeline where time= (select MIN(time) from timeline) and notebook=?;",NoteBookId+"");
+        List<String> maxtime=new SqlOperation().SelectSql("select time as A,notebook as B from timeline where time= (select MAX(time) from timeline) and notebook=?;",NoteBookId+"");
+        if (InitialDay==null){
+            InitialDay=mimtime.get(0).split("#")[0];
+        }
+        if (EndDay==null){
+            EndDay=maxtime.get(0).split("#")[0];
+        }
+        billModel.setCreateTime(CreateTime());  //创建时间
+        billModel.setInitialDay(InitialDay);   //起始时间
+        billModel.setEndDay(EndDay);  //结束时间
+        NoteBook book= (NoteBook) new SqlOperation().SelectId(NoteBook.class,NoteBookId);
+        billModel.setNoteBookName(book.getNoteBookName());
+        /**获得天数**/
+        try {
+            DateSum=Utils.longOfTwoDate(InitialDay,EndDay)+1;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            DateSum=0;
+        }
+        billModel.setSumDay(DateSum);   //天数量
+    }
     private void a(TimeLine calendarRecord){
         if (calendarRecord.getDirection()==1){
             sumsp++;
@@ -124,8 +152,7 @@ public class BillSql {
 
 
     }
-
-    private void selectClass(){
+    private void b(){
         List<String> strings1;
         List<String> strings2;
         if (NoteBookId!=-1){
@@ -161,47 +188,50 @@ public class BillSql {
         billModel.setSpendingFrequencyClass(classid);  //支出次数最多的是什么
         billModel.setIncomeFrequencyClass(classid1);   //收入次数最多的是什么
     }
-
-    private void selectNoteBook(){
+    private void c(){
         List<String> strings1;
         List<String> strings2;
         if (NoteBookId==-1){
             strings1=new SqlOperation().SelectSql("select sum(Price) as A,notebook as B from timeline where  direction=1  group by notebook;");
             strings2=new SqlOperation().SelectSql("select sum(Price) as A,notebook as B from timeline where  direction=0  group by notebook;");
 
-            int Price=0;
+            double Price=0;
             int NoteBookId=0;
             for(String s:strings1){
                 String[] strs=s.split("#");
-                if (Integer.parseInt(strs[0])>Price){
-                    Price=Integer.parseInt(strs[0]);
+                if (Double.parseDouble(strs[0])>Price){
+                    Price=Double.parseDouble(strs[0]);
                     NoteBookId=Integer.parseInt(strs[1]);
                 }
             }
 
 
-            int Price1=0;
+            double Price1=0;
             int NoteBookId1=0;
             for(String s:strings2){
                 String[] strs=s.split("#");
-                if (Integer.parseInt(strs[0])>Price1){
-                    Price1=Integer.parseInt(strs[0]);
+                if (Double.parseDouble(strs[0])>Price1){
+                    Price1=Double.parseDouble(strs[0]);
                     NoteBookId1=Integer.parseInt(strs[1]);
                 }
             }
 
             NoteBook book= (NoteBook) new SqlOperation().SelectId(NoteBook.class,NoteBookId);
             if (book==null)
-                billModel.setSpendingNoteBook("默认账本null");  //支出最多的账本
+                billModel.setSpendingNoteBook("0次支出");  //支出最多的账本
             else
                 billModel.setSpendingNoteBook(book.getNoteBookName());  //支出最多的账本
 
             NoteBook book1= (NoteBook) new SqlOperation().SelectId(NoteBook.class,NoteBookId1);
 
             if (book1==null)
-                billModel.setIncomeNoteBook("默认账本null");   //收入最多的账本
+                billModel.setIncomeNoteBook("0次收入");   //收入最多的账本
             else
                 billModel.setIncomeNoteBook(book1.getNoteBookName());   //收入最多的账本
+        }else {
+            NoteBook book= (NoteBook) new SqlOperation().SelectId(NoteBook.class,NoteBookId);
+            billModel.setSpendingNoteBook(book.getNoteBookName());  //支出最多的账本
+            billModel.setIncomeNoteBook(book.getNoteBookName());   //收入最多的账本
         }
     }
 }

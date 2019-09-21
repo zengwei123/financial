@@ -5,10 +5,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -30,7 +32,12 @@ public class BillFragment extends MvpFragment<BillPresenter> implements BillView
     private TextView Bill_End_Text;
     @ViewBind(R.id.Bill_Generate)
     private TextView Bill_Generate;
-
+    @ViewBind(R.id.sdgsgs)
+    private TextView sdgsgs;
+    @ViewBind(R.id.Bill_Recycler)
+    private RecyclerView Bill_Recycler;
+    @ViewBind(R.id.add_butssadas)
+    private ImageView add_butssadas;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.bill_fragment,null,false);
@@ -82,6 +89,21 @@ public class BillFragment extends MvpFragment<BillPresenter> implements BillView
     @Override
     public TextView getBill_Generate() {
         return Bill_Generate;
+    }
+
+    @Override
+    public TextView getsdgsgs() {
+        return sdgsgs;
+    }
+
+    @Override
+    public RecyclerView getBill_Recycler() {
+        return Bill_Recycler;
+    }
+
+    @Override
+    public ImageView getadd_butssadas() {
+        return add_butssadas;
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cnitpm.financial.Model.AllModel;
+import com.cnitpm.financial.Model.BillModel;
 import com.cnitpm.financial.Model.CIModel;
 import com.cnitpm.financial.Model.CalendarRecord;
 import com.cnitpm.financial.Model.NoteBook;
@@ -48,6 +49,10 @@ public class UtilRecyclerAdapter extends BaseMultiItemQuickAdapter<AllModel, Bas
         }
         else if(c== CIModel.class){   /**添加界面的类型列表**/
             addItemType(1, R.layout.arviewpage_recycler_classcloose_item);
+        }
+
+        else if(c== BillModel.class){
+            addItemType(1, R.layout.billmodel_recycler);
         }
     }
 
@@ -175,6 +180,19 @@ public class UtilRecyclerAdapter extends BaseMultiItemQuickAdapter<AllModel, Bas
                         Glide.with(context).load(R.mipmap.notebook_bg).into((ImageView) helper.getView(R.id.AddRecord_RecyclerView_NoteBooks_Image));
                     }
                     helper.setText(R.id.AddRecord_RecyclerView_NoteBooks_Text,((NoteBook)item.getData()).getNoteBookName());
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }
+        /**********************************************************************************************************************************************/
+        else if(c == BillModel.class) /**账本**/
+        {
+            try {
+                if(item.getItemType()==1){
+                    BillModel billModel= (BillModel) item.getData();
+                    helper.setText(R.id.Bill_Recycler_Text,billModel.getInitialDay()+"到"+billModel.getEndDay());
                 }
             }catch (Exception e){
                 e.printStackTrace();

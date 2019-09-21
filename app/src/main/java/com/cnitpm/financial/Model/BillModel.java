@@ -1,41 +1,43 @@
 package com.cnitpm.financial.Model;
 
-public class BillModel {
-    private String CreateTime;  //创建时间  1
-    private String InitialDay;   //开始时间  1
+import org.litepal.crud.LitePalSupport;
+
+public class BillModel extends LitePalSupport {
+    private String CreateTime;  //创建时间  1  2
+    private String InitialDay;   //开始时间  1  2
     private String EndDay;  //结束时间   1
 
-    private double SpendingSumMoney;  //全部支出金额 1
-    private double IncomeSumMoney; //全部收入金额 1
+    private double SpendingSumMoney;  //全部支出金额 1  2
+    private double IncomeSumMoney; //全部收入金额 1   2
 
-    private double MaxSpendingMoney;  //最高支出金额  1
-    private int MaxSpendingMoneyClass; //最高支出金额类型 1
-    private String MaxSpendingMoneyTime;  //最高支出金额日期 1
+    private double MaxSpendingMoney;  //最高支出金额  1  2
+    private int MaxSpendingMoneyClass; //最高支出金额类型 1  2
+    private String MaxSpendingMoneyTime;  //最高支出金额日期 1  2
     private int  MaxSpendingMoneyNoteBookId;  //最高支出金额所属账本id  1
-    private String  MaxSpendingMoneyNoteBook;  //最高支出金额所属账本  1
+    private String  MaxSpendingMoneyNoteBook;  //最高支出金额所属账本  1  2
 
-    private double MaxIncomeMoney;  //最高收入金额   1
-    private int MaxIncomeMoneyClass;  //最高收入金额类型  1
-    private String MaxIncomeMoneyTime;  //最高收入金额日期  1
-    private int  MaxIncomeMoneyNoteBookId;  //最高收入金额所属账本id  1
-    private String MaxIncomeMoneyNoteBook;  //最高收入金额所属账本  1
+    private double MaxIncomeMoney;  //最高收入金额   1   2
+    private int MaxIncomeMoneyClass;  //最高收入金额类型  1 2
+    private String MaxIncomeMoneyTime;  //最高收入金额日期  1 2
+    private int  MaxIncomeMoneyNoteBookId;  //最高收入金额所属账本id  1 2
+    private String MaxIncomeMoneyNoteBook;  //最高收入金额所属账本  1 2
 
-    private double AverageSpendingMoney; //平均每天的支出 1
-    private double AverageIncomeMoney; //平均每天的收入  1
+    private double AverageSpendingMoney; //平均每天的支出 1  2
+    private double AverageIncomeMoney; //平均每天的收入  1  2
 
     private int SpendingFrequency; //支出的次数    1
     private int IncomeFrequency; // 收入的次数    1
 
-    private int SpendingFrequencyClass; //支出次数最多的是什么 1
-    private int IncomeFrequencyClass;  //收入次数最多的是什么  1
+    private int SpendingFrequencyClass; //支出次数最多的是什么 1  2
+    private int IncomeFrequencyClass;  //收入次数最多的是什么  1  2
 
-    private String SpendingNoteBook;  //支出最多的账本  1
-    private String IncomeNoteBook;  //收入最多的账本  1
+    private String SpendingNoteBook;  //支出最多的账本  1  2
+    private String IncomeNoteBook;  //收入最多的账本  1 2
 
-    private String SpendingIncomeRatio;  //支付收入的比率
-    private int SumDay;// 全部天数  1
+    private String SpendingIncomeRatio;  //支付收入的比率  2
+    private int SumDay;// 全部天数  1    2
     private int NoteBookId;   //账本的id
-    private String NoteBookName;  //账本的名字
+    private String NoteBookName;  //账本的名字  2
 
     @Override
     public String toString() {
